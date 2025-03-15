@@ -47,11 +47,17 @@ Kondisi cuaca didapatkan dari informasi http://www.freemeteo.com.
 **1. Install Library yang Dibutuhkan**
 
 Jalankan perintah berikut untuk menginstal library yang diperlukan:
-`pip install numpy`/n
+
+`pip install numpy`
+
 `pip install pandas`
+
 `pip install scipy`
+
 `pip install matplotlib`
+
 `pip install seaborn`
+
 `!pip install streamlit pyngrok
 from pyngrok import ngrok`
 
@@ -59,21 +65,28 @@ from pyngrok import ngrok`
 
 mount Google Drive untuk membaca dataset:
 `from google.colab import drive`
+
 `drive.mount('/content/drive')`
 
 Kemudian, file dataset day.csv dan hour.csv diakses dari Google Drive:
 `daydataset = "/content/drive/MyDrive/LASKAR AI/SUBMISSION/dataset/day.csv"`
+
 `day_df = pd.read_csv(daydataset)`
+
 `hourdataset = "/content/drive/MyDrive/LASKAR AI/SUBMISSION/dataset/hour.csv"`
+
 `hour_df = pd.read_csv(hourdataset)`
 
 **3.  Menjalankan Streamlit''
 Jika di Google Colab
 `!pip install streamlit pyngrok`
+
 `from pyngrok import ngrok`
 
-`!streamlit run dashboardbikesharing.py &>/dev/null &`
+`!streamlit run dashboardbikesharing.py &>/dev/null 
+
 `url = ngrok.connect(port='8501')`
+
 `print(f"🎯 Buka dashboard di: {url}")`
 
 Jika di PC/Laptop:
@@ -93,11 +106,17 @@ Jika di PC/Laptop:
 **Library yang digunakan**
 
 `matplotlib==3.10.0`
+
 `numpy==1.26.4`
+
 `pandas==2.2.2`
+
 `scipy==1.14.1`
+
 `seaborn==0.13.2`
+
 `streamlit==1.43.2`
+
 `pyngrok==(7.2.3)`
 
 **Kontak**
