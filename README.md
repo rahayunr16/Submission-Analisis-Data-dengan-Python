@@ -64,6 +64,7 @@ from pyngrok import ngrok`
 **2.  Jika Menggunakan Google Colab**
 
 mount Google Drive untuk membaca dataset:
+
 `from google.colab import drive`
 
 `drive.mount('/content/drive')`
