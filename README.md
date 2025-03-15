@@ -47,7 +47,7 @@ Kondisi cuaca didapatkan dari informasi http://www.freemeteo.com.
 **1. Install Library yang Dibutuhkan**
 
 Jalankan perintah berikut untuk menginstal library yang diperlukan:
-`pip install numpy`
+`pip install numpy`/n
 `pip install pandas`
 `pip install scipy`
 `pip install matplotlib`
@@ -77,7 +77,7 @@ Jika di Google Colab
 `print(f"🎯 Buka dashboard di: {url}")`
 
 Jika di PC/Laptop:
-streamlit run dashboardbikesharing.py
+`streamlit run dashboardbikesharing.py`
 
 **Struktur Proyek**
 
