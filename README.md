@@ -97,12 +97,19 @@ Jika di PC/Laptop:
 **Struktur Proyek**
 
 📂 SUBMISSION
+
  ┣ 📂 dataset
+ 
  ┃ ┣ 📄 day.csv
+ 
  ┃ ┣ 📄 hour.csv
+ 
  ┃ 📄 Submission-Analisis-Data.ipynb  
+ 
  ┃ 📄 dashboardbikesharing.py  
+ 
  ┣ 📄 requirements.txt  
+ 
  ┣ 📄 README.md  
 
 **Library yang digunakan**
