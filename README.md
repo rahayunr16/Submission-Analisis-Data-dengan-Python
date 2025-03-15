@@ -58,8 +58,9 @@ Jalankan perintah berikut untuk menginstal library yang diperlukan:
 
 `pip install seaborn`
 
-`!pip install streamlit pyngrok
-from pyngrok import ngrok`
+`!pip install streamlit pyngrok`
+
+`from pyngrok import ngrok`
 
 **2.  Jika Menggunakan Google Colab**
 
