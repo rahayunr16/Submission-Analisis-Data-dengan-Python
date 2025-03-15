@@ -2,10 +2,10 @@
 Ini merupakan salah satu submission pada course yang diadakan oleh program beasiswa Laskar AI dengan menggunakan dataset dari Bike-Sharing Rental. Analisis ini juga menyediakan dashboard sebagai hasil visualisasi Data Wrangling, EDA, dan Visualization to Get An Insight
 
 # BIKE-SHARING RENTAL 
-##**Tentang Bike-Sharing Rental**
+**Tentang Bike-Sharing Rental**
 Bike-sharing rental adalah inovasi dari penyewaan sepeda tradisional dengan proses otomatis, mencakup keanggotaan, penyewaan, dan pengembalian. Pengguna dapat menyewa dan mengembalikan sepeda di lokasi yang berbeda. Saat ini, terdapat lebih dari 500 program penyewaan sepeda berbagi di seluruh dunia, dengan total lebih dari 500.000 sepeda. Inovasi ini berkontribusi terhadap lalu lintas, lingkungan, dan kesehatan.
 
-##**Pertanyaan Analisi yang Dijawab**
+**Pertanyaan Analisis**
 Bagaimana pola musiman memengaruhi jumlah penyewaan sepeda?
 Apakah jumlah penyewaan sepeda lebih tinggi pada hari kerja dibandingkan akhir pekan?
 Apakah kondisi cuaca memengaruhi tren penyewaan sepeda?
@@ -14,11 +14,11 @@ Di bulan apa jumlah penyewaan sepeda paling tinggi?
 Mana yang lebih banyak: pengguna terdaftar atau pengguna kasual?
 Bagaimana tren total penyewaan sepeda dari waktu ke waktu?
 
-##**Detail Proyek**
+**Detail Proyek**
 Proyek data ini terdiri dari data wrangling yaitu gathering data, assesing data, dan cleaning data; exploratory data analysis (EDA); serta data vizualisation.
 Pada proyek data ini tujuan pengolahan adalah menjawab pertanyaan yang muncul sebagai analisis dan insight untuk dapat menerapkan strategi bisnis atau pengembangan bike-sharing rental.
 
-##**Dataset**
+**Dataset**
 Adapun dataset yang digunakan adalah Bike-sharing rental dengan detail label tentang index, tahun, bulan, jam, kondisi cuaca, musim, temperatur udara dalam celsius, temperatur yang dirasakan, kelembaban, kecepatan angin, banyaknya pengguna kasual dan terdaaftar, total penyewaan sepeda.
 Dataset merupakan rekam dari 2 tahun dari Januari 2011 hingga Desember 2012 dari Capital Bikeshare system, Washington D.C., USA yang dipublikasikan http://capitalbikeshare.com/system-data. 
 Kondisi cuaca didapatkan dari informasi http://www.freemeteo.com.
@@ -39,8 +39,8 @@ Kondisi cuaca didapatkan dari informasi http://www.freemeteo.com.
 | `registered_users`  | Jumlah pengguna terdaftar |
 | `total_rentals`     | Total jumlah penyewaan sepeda |
 
-##**Instalasi**
-###**1. Install Library yang Dibutuhkan**
+**Instalasi**
+**1. Install Library yang Dibutuhkan**
 Jalankan perintah berikut untuk menginstal library yang diperlukan:
 'pip install numpy'
 'pip install pandas'
@@ -50,8 +50,7 @@ Jalankan perintah berikut untuk menginstal library yang diperlukan:
 '!pip install streamlit pyngrok
 from pyngrok import ngrok'
 
-###**2.  Jika Menggunakan Google Colab**
-
+**2.  Jika Menggunakan Google Colab**
 mount Google Drive untuk membaca dataset:
 'from google.colab import drive'
 'drive.mount('/content/drive')'
@@ -62,7 +61,7 @@ Kemudian, file dataset day.csv dan hour.csv diakses dari Google Drive:
 'hourdataset = "/content/drive/MyDrive/LASKAR AI/SUBMISSION/hour.csv"'
 'hour_df = pd.read_csv(hourdataset)'
 
-###**3.  Menjalankan Streamlit''
+**3.  Menjalankan Streamlit''
 Jika di Google Colab
 '!pip install streamlit pyngrok'
 'from pyngrok import ngrok'
@@ -74,8 +73,7 @@ Jika di Google Colab
 Jika di PC/Laptop:
 streamlit run dashboardbikesharing.py
 
-##**Struktur Proyek**
-
+**Struktur Proyek**
 📂 SUBMISSION
  ┣ 📂 dataset (raw)
  ┃ ┣ 📄 day.csv
@@ -88,8 +86,7 @@ streamlit run dashboardbikesharing.py
  ┣ 📄 requirements.txt  
  ┣ 📄 README.md  
 
-##**Library yang digunakan**
-
+**Library yang digunakan**
 'numpy == (1.26.4)'
 'pandas == (2.2.2)'
 'scipy == (1.13.1)'
@@ -98,6 +95,5 @@ streamlit run dashboardbikesharing.py
 'pyngrok == (7.2.3)'
 'streamlit == (1.43.1)'
 
-##**Kontak**
-
+**Kontak**
 Jika memiliki pertanyaan, hubungi saya di a229xbm406@devacademy.id
