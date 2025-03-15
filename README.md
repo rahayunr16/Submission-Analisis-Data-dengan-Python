@@ -8,13 +8,13 @@ Bike-sharing rental adalah inovasi dari penyewaan sepeda tradisional dengan pros
 
 **Pertanyaan Analisis**
 
-Bagaimana pola musiman memengaruhi jumlah penyewaan sepeda?
-Apakah jumlah penyewaan sepeda lebih tinggi pada hari kerja dibandingkan akhir pekan?
-Apakah kondisi cuaca memengaruhi tren penyewaan sepeda?
-Pada hari apa penyewaan sepeda mencapai jumlah tertinggi?
-Di bulan apa jumlah penyewaan sepeda paling tinggi?
-Mana yang lebih banyak: pengguna terdaftar atau pengguna kasual?
-Bagaimana tren total penyewaan sepeda dari waktu ke waktu?
+1. Bagaimana pola musiman memengaruhi jumlah penyewaan sepeda?
+2. Apakah jumlah penyewaan sepeda lebih tinggi pada hari kerja dibandingkan akhir pekan?
+3. Apakah kondisi cuaca memengaruhi tren penyewaan sepeda?
+4. Pada hari apa penyewaan sepeda mencapai jumlah tertinggi?
+5. Di bulan apa jumlah penyewaan sepeda paling tinggi?
+6. Mana yang lebih banyak: pengguna terdaftar atau pengguna kasual?
+7. Bagaimana tren total penyewaan sepeda dari waktu ke waktu?
 
 **Detail Proyek**
 
@@ -47,34 +47,34 @@ Kondisi cuaca didapatkan dari informasi http://www.freemeteo.com.
 **1. Install Library yang Dibutuhkan**
 
 Jalankan perintah berikut untuk menginstal library yang diperlukan:
-'pip install numpy'
-'pip install pandas'
-'pip install scipy'
-'pip install matplotlib''
-'pip install seaborn'
-'!pip install streamlit pyngrok
-from pyngrok import ngrok'
+`pip install numpy`
+`pip install pandas`
+`pip install scipy`
+`pip install matplotlib`
+`pip install seaborn`
+`!pip install streamlit pyngrok
+from pyngrok import ngrok`
 
 **2.  Jika Menggunakan Google Colab**
 
 mount Google Drive untuk membaca dataset:
-'from google.colab import drive'
-'drive.mount('/content/drive')'
+`from google.colab import drive`
+`drive.mount('/content/drive')`
 
 Kemudian, file dataset day.csv dan hour.csv diakses dari Google Drive:
-'daydataset = "/content/drive/MyDrive/LASKAR AI/SUBMISSION/day.csv"'
-'day_df = pd.read_csv(daydataset)'
-'hourdataset = "/content/drive/MyDrive/LASKAR AI/SUBMISSION/hour.csv"'
-'hour_df = pd.read_csv(hourdataset)'
+`daydataset = "/content/drive/MyDrive/LASKAR AI/SUBMISSION/dataset/day.csv"`
+`day_df = pd.read_csv(daydataset)`
+`hourdataset = "/content/drive/MyDrive/LASKAR AI/SUBMISSION/dataset/hour.csv"`
+`hour_df = pd.read_csv(hourdataset)`
 
 **3.  Menjalankan Streamlit''
 Jika di Google Colab
-'!pip install streamlit pyngrok'
-'from pyngrok import ngrok'
+`!pip install streamlit pyngrok`
+`from pyngrok import ngrok`
 
-'!streamlit run dashboardbikesharing.py &>/dev/null &'
-'url = ngrok.connect(port='8501')'
-'print(f"🎯 Buka dashboard di: {url}")'
+`!streamlit run dashboardbikesharing.py &>/dev/null &`
+`url = ngrok.connect(port='8501')`
+`print(f"🎯 Buka dashboard di: {url}")`
 
 Jika di PC/Laptop:
 streamlit run dashboardbikesharing.py
@@ -82,26 +82,23 @@ streamlit run dashboardbikesharing.py
 **Struktur Proyek**
 
 📂 SUBMISSION
- ┣ 📂 dataset (raw)
+ ┣ 📂 dataset
  ┃ ┣ 📄 day.csv
  ┃ ┣ 📄 hour.csv
- ┣ 📂 dataset (cleaning)
- ┃ ┣ 📄 day1.csv
- ┃ ┣ 📄 hour1.csv
- ┃ 📄 SubmissionLAI.ipynb  
- ┃ 📄 submissionlai2_(dashboard).py  
+ ┃ 📄 Submission-Analisis-Data.ipynb  
+ ┃ 📄 dashboardbikesharing.py  
  ┣ 📄 requirements.txt  
  ┣ 📄 README.md  
 
 **Library yang digunakan**
 
-'numpy == (1.26.4)'
-'pandas == (2.2.2)'
-'scipy == (1.13.1)'
-'matplotlib == (3.10.0)'
-'seaborn == (0.13.2)'
-'pyngrok == (7.2.3)'
-'streamlit == (1.43.1)'
+`matplotlib==3.10.0`
+`numpy==1.26.4`
+`pandas==2.2.2`
+`scipy==1.14.1`
+`seaborn==0.13.2`
+`streamlit==1.43.2`
+`pyngrok==(7.2.3)`
 
 **Kontak**
 
