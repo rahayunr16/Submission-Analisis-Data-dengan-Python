@@ -14,7 +14,7 @@ import streamlit as st
 
 def create_user_v_season_df(day1_df):
     user_v_season = day1_df.groupby("season", as_index=False)["total_rentals"].sum()
-    return user_v_season 
+    return user_v_season_df
 
 def day_summary_df(day1_df):
     day_summary = day1_df.groupby("working_day", as_index=False)["total_rentals"].sum()
@@ -107,26 +107,25 @@ st.header('DASHBOARD BIKE-SHARING RENTALS')
 st.subheader("Pola Musiman pada Total Penyewaan Sepeda")
 
 fig, ax = plt.subplots(figsize=(6, 6))
-ax.set_title('Hubungan Antara Season dan Total Penyewaan')
 
-sns.barplot(
+graph = sns.barplot(
     data=user_v_season,
     x='season',
     y='total_rentals',
     ax=ax
 )
 
-for container in ax.containers:
-    ax.bar_label(container, fmt="%d", color='black')
+for i in graph.containers:
+    graph.bar_label(i, fmt="%d", fontsize=12, color="black")
 
-ax.set_xlabel("Season")
-ax.set_ylabel("Total Rentals")
+plt.xlabel("Season", fontsize=12)
+plt.ylabel("Total Rentals", fontsize=12)
 
 st.pyplot(fig)
 
 st.subheader("Perbandingan Total Penyewaan Sepeda pada Hari Kerja vs Akhir Pekan")
 
-fig, ax = plt.subplots(figsize=(8, 6))  # Tidak ada indentasi di sini
+fig, ax = plt.subplots(figsize=(8, 6))  
 colors = ["#D9534F", "#BBD2E2"]
 
 graph = sns.barplot(
@@ -139,7 +138,6 @@ graph = sns.barplot(
     ax=ax
 )
 
-# Pastikan indentasi benar (4 spasi)
 for i in graph.containers:
     graph.bar_label(i, fmt="%d", fontsize=12, color="black")
 
