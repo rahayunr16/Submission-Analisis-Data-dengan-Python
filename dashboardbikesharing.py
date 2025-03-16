@@ -149,18 +149,18 @@ st.pyplot(fig)
 
 st.subheader("Perbandingan Total Penyewaan Sepeda pada Hari Kerja vs Akhir Pekan")
 
-    fig, ax = plt.subplots(figsize=(8, 6))
-    colors = ["#D9534F", "#BBD2E2"]
-    
-    graph = sns.barplot(
-        data=day_summary,
-        x="working_day",
-        y="total_rentals",
-        hue="working_day",
-        palette=colors,
-        legend=False,
-        ax=ax
-    )
+fig, ax = plt.subplots(figsize=(8, 6))  # Tidak ada indentasi di sini
+colors = ["#D9534F", "#BBD2E2"]
+
+graph = sns.barplot(
+    data=day_summary,
+    x="working_day",
+    y="total_rentals",
+    hue="working_day",
+    palette=colors,
+    legend=False,
+    ax=ax
+)
 
     for i in graph.containers:
         graph.bar_label(i, fmt="%d", fontsize=12, color="black")
