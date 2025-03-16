@@ -242,29 +242,30 @@ st.pyplot(fig)
  
 st.subheader("Total Penyewaan Sepeda per Bulan")
 
-   fig, ax = plt.subplots(figsize=(10, 6))
-  
-   colors = sns.color_palette("pastel", 12)
+fig, ax = plt.subplots(figsize=(10, 6))
 
-   graph = sns.barplot(
-       data=month_summary,
-       x='month',
-       y='total_rentals',
-       palette=colors,
-       ax=ax
-   )
+colors = sns.color_palette("pastel", 12)
 
-   for i in graph.containers:
-       graph.bar_label(i, fmt="%d", fontsize=11, color="black", label_type="edge", padding=3)
+graph = sns.barplot(
+    data=month_summary,
+    x='month',
+    y='total_rentals',
+    palette=colors,
+    ax=ax
+)
 
-   plt.xticks(rotation=45, ha="right")
+for i in graph.containers:
+    graph.bar_label(i, fmt="%d", fontsize=11, color="black", label_type="edge", padding=3)
 
-   plt.title("Hubungan Bulan dengan Total Penyewaan", fontsize=14)
-   plt.xlabel("Bulan", fontsize=12)
-   plt.ylabel("Total Penyewaan", fontsize=12)
-   
-   plt.tight_layout()
-   st.pyplot(fig)
+plt.xticks(rotation=45, ha="right")
+
+plt.title("Hubungan Bulan dengan Total Penyewaan", fontsize=14)
+plt.xlabel("Bulan", fontsize=12)
+plt.ylabel("Total Penyewaan", fontsize=12)
+
+plt.tight_layout()
+st.pyplot(fig)
+
    
   st.subheader("Rasio Total dari Pengguna Terdaftar dan Pengguna Kasual")
 
