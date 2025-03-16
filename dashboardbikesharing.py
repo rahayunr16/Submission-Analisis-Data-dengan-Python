@@ -110,7 +110,7 @@ st.subheader("Pola Musiman pada Total Penyewaan Sepeda")
 fig, ax = plt.subplots(figsize=(6, 6))
 
 graph = sns.barplot(
-    data=user_v_season,
+    data=user_v_season_df,
     x='season',
     y='total_rentals',
     ax=ax
@@ -130,7 +130,7 @@ fig, ax = plt.subplots(figsize=(8, 6))
 colors = ["#D9534F", "#BBD2E2"]
 
 graph = sns.barplot(
-    data=day_summary,
+    data=day_summary_df,
     x="working_day",
     y="total_rentals",
     hue="working_day",
