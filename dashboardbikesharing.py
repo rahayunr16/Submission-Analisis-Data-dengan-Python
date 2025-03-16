@@ -71,8 +71,8 @@ def create_monthly_orders_df(day1_df):
     monthly_orders_df.head()
     return monthly_orders_df
 
-day1_df = pd.read_csv("day1.csv")
-hour1_df = pd.read_csv("hour1.csv")
+day1_df = pd.read_csv("day1_data.csv")
+hour1_df = pd.read_csv("hour1_data.csv")
 day1_df["date"] = pd.to_datetime(day1_df["date"])
 hour1_df["date"] = pd.to_datetime(hour1_df["date"])
 
