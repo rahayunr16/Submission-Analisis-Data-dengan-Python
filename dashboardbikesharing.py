@@ -192,28 +192,29 @@ graph1 = sns.barplot(
 axes[0].set_title('Hubungan Cuaca & Total Penyewaan berdasarkan hari', fontsize=14)
 axes[0].set_xlabel('Kondisi Cuaca', fontsize=12)
 axes[0].set_ylabel('Total Penyewaan', fontsize=12)
-   
-   for i in graph1.containers:
-       graph1.bar_label(i, fmt="%d", fontsize=12, color="black")
-   
-   graph2 = sns.barplot(
-       ax=axes[1],
-       data=hour_summary1,
-       x='weather_condition',
-       y='total_rentals',
-       hue='weather_condition',
-       palette=hourcolors,
-       legend=False
-   )
-   axes[1].set_title('Hubungan Cuaca & Total Penyewaan berdasarkan jam', fontsize=14)
-   axes[1].set_xlabel('Kondisi Cuaca', fontsize=12)
-   axes[1].set_ylabel('Total Penyewaan', fontsize=12)
-   
-   for i in graph2.containers:
-       graph2.bar_label(i, fmt="%d", fontsize=12, color="black")
 
-   plt.tight_layout()
-   st.pyplot(fig)
+for i in graph1.containers:
+    graph1.bar_label(i, fmt="%d", fontsize=12, color="black")
+
+graph2 = sns.barplot(
+    ax=axes[1],
+    data=hour_summary1,
+    x='weather_condition',
+    y='total_rentals',
+    hue='weather_condition',
+    palette=hourcolors,
+    legend=False
+)
+
+axes[1].set_title('Hubungan Cuaca & Total Penyewaan berdasarkan jam', fontsize=14)
+axes[1].set_xlabel('Kondisi Cuaca', fontsize=12)
+axes[1].set_ylabel('Total Penyewaan', fontsize=12)
+
+for i in graph2.containers:
+    graph2.bar_label(i, fmt="%d", fontsize=12, color="black")
+
+plt.tight_layout()
+st.pyplot(fig)
 
 st.subheader("Total Penyewaan Sepeda dalam Seminggu")
 
