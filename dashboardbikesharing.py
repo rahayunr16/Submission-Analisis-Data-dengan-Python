@@ -162,14 +162,15 @@ graph = sns.barplot(
     ax=ax
 )
 
-    for i in graph.containers:
-        graph.bar_label(i, fmt="%d", fontsize=12, color="black")
+# Pastikan indentasi benar (4 spasi)
+for i in graph.containers:
+    graph.bar_label(i, fmt="%d", fontsize=12, color="black")
 
-    plt.title("Hubungan Hari Kerja dengan Total Penyewaan", fontsize=14)
-    plt.xlabel("Hari Kerja", fontsize=12)
-    plt.ylabel("Total Penyewaan", fontsize=12)
-    
-    st.pyplot(fig)
+plt.title("Hubungan Hari Kerja dengan Total Penyewaan", fontsize=14)
+plt.xlabel("Hari Kerja", fontsize=12)
+plt.ylabel("Total Penyewaan", fontsize=12)
+
+st.pyplot(fig)
 
 st.subheader("Pengaruh Kondisi Cuaca pada Total Penyewaan Sepeda")
 
