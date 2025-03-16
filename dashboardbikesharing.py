@@ -267,65 +267,67 @@ plt.tight_layout()
 st.pyplot(fig)
 
    
-  st.subheader("Rasio Total dari Pengguna Terdaftar dan Pengguna Kasual")
+st.subheader("Rasio Total dari Pengguna Terdaftar dan Pengguna Kasual")
 
-   fig, ax = plt.subplots(figsize=(7, 7))
-  
-   plt.pie(
-       user_counts,
-       labels=labels,
-       autopct='%1.1f%%',
-       colors=colors,
-       startangle=90,
-       wedgeprops={'edgecolor': 'black'}
-   )
+fig, ax = plt.subplots(figsize=(7, 7))
 
-   plt.title("Perbandingan Pengguna Terdaftar vs Pengguna Kasual", fontsize=14)
+plt.pie(
+    user_counts,
+    labels=labels,
+    autopct='%1.1f%%',
+    colors=colors,
+    startangle=90,
+    wedgeprops={'edgecolor': 'black'}
+)
 
-   plt.axis('equal')
+plt.title("Perbandingan Pengguna Terdaftar vs Pengguna Kasual", fontsize=14)
 
-   st.pyplot(fig)
+plt.axis('equal')
+
+st.pyplot(fig)
    
-    st.subheader("Tren Total Penyewaan Sepeda dari Waktu ke Waktu")
-    fig, ax = plt.subplots(figsize=(10, 5))
+st.subheader("Tren Total Penyewaan Sepeda dari Waktu ke Waktu")
 
-    sns.lineplot(
-        data=hour_df.groupby('hour', as_index=False)['total_rentals'].sum(),
-        x='hour',
-        y='total_rentals',
-        marker='o',  # Tambahkan titik di setiap jam
-        color='royalblue',  # Warna garis
-        linewidth=2,
-        ax=ax
-    )
+fig, ax = plt.subplots(figsize=(10, 5))
 
-    ax.set_title('Tren Penyewaan Sepeda per Jam', fontsize=14)
-    ax.set_xlabel('Jam dalam Sehari', fontsize=12)
-    ax.set_ylabel('Total Penyewaan', fontsize=12)
+sns.lineplot(
+    data=hour_df.groupby('hour', as_index=False)['total_rentals'].sum(),
+    x='hour',
+    y='total_rentals',
+    marker='o',  # Tambahkan titik di setiap jam
+    color='royalblue',  # Warna garis
+    linewidth=2,
+    ax=ax
+)
 
-    ax.grid(axis='y', linestyle='--', alpha=0.7)
-    
-    st.pyplot(fig)
+ax.set_title('Tren Penyewaan Sepeda per Jam', fontsize=14)
+ax.set_xlabel('Jam dalam Sehari', fontsize=12)
+ax.set_ylabel('Total Penyewaan', fontsize=12)
 
-    fig, ax = plt.subplots(figsize=(12, 6))
+ax.grid(axis='y', linestyle='--', alpha=0.7)
 
-    sns.lineplot(
-        data=monthly_rentals, 
-        x='year_month', 
-        y='total_rentals', 
-        marker='o', 
-        color='b',
-        ax=ax
-    )
+st.pyplot(fig)
 
-    ax.set_title('Tren Total Penyewaan Per Bulan (2011-2012)', fontsize=14)
-    ax.set_xlabel('Bulan', fontsize=12)
-    ax.set_ylabel('Total Penyewaan', fontsize=12)
-    
-    plt.xticks(rotation=45)
 
-    ax.grid(True, linestyle='--', alpha=0.5)
-    
-    plt.tight_layout()
-    
-    st.pyplot(fig)
+fig, ax = plt.subplots(figsize=(12, 6))
+
+sns.lineplot(
+    data=monthly_rentals, 
+    x='year_month', 
+    y='total_rentals', 
+    marker='o', 
+    color='b',
+    ax=ax
+)
+
+ax.set_title('Tren Total Penyewaan Per Bulan (2011-2012)', fontsize=14)
+ax.set_xlabel('Bulan', fontsize=12)
+ax.set_ylabel('Total Penyewaan', fontsize=12)
+
+plt.xticks(rotation=45)
+
+ax.grid(True, linestyle='--', alpha=0.5)
+
+plt.tight_layout()
+
+st.pyplot(fig)
