@@ -12,37 +12,72 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 
-def create_season_rentals_df(all_df):
-    season_rentals_df = (all_df.groupby("season")["cnt"].sum().sort_values(ascending=False).reset_index())
-    return season_rentals_df
+def create_user_v_season_df(day1_df):
+    user_v_season = round(day1_df.groupby(by=['season']).agg({
+    'temperature_celsius': 'mean',
+    'feels_like_temperature': 'mean',
+    'total_rentals': 'sum'}), 
+    2).reset_index().sort_values(by='total_rentals', ascending=False)
+    return user_v_season_df
 
-def create_monthly_orders_df(all_df):
-    all_df['dteday'] = pd.to_datetime(all_df['dteday'])
-    monthly_orders_df = all_df.resample(rule='ME', on='dteday').agg({
-        "registered": "nunique",
-        "casual":"nunique",
-        "cnt": "sum"
+def day_summary_df(day1_df):
+    day_summary = day1_df.groupby("working_day", as_index=False)["total_rentals"].sum()
+    return day_summary_df
+
+def day_summary1_df(day1_df):
+    day_summary1 = day1_df.groupby('weather_condition', as_index=False)['total_rentals'].sum()
+    return day_summary1_df
+    
+def hour_summary1(hour1_df):
+    hour_summary1 = hour1_df.groupby('weather_condition', as_index=False)['total_rentals'].sum()
+    return hour_summary1_df
+
+order = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+def day_summary2_df(day1_df):
+    day_summary2 = day1_df.groupby('weekday', as_index=False)['total_rentals'].sum()
+    day_summary2['weekday'] = pd.Categorical(day_summary2['weekday'], categories=order, ordered=True)
+    day_summary2 = day_summary2.sort_values('weekday')
+    return day_summary2_df
+
+def month_summary_df(day1_df):
+    day1_df['month'] = day1_df['month'].astype(str)
+    month_summary = day1_df.groupby('month', as_index=False)['total_rentals'].sum()
+    month_summary = month_summary.dropna(subset=['month'])
+    order = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ]
+    month_summary['month'] = pd.Categorical(month_summary['month'], categories=order, ordered=True)\
+    month_summary = month_summary.sort_values('month')
+    return month_summary_df
+
+def user_counts_df(day1_df):
+    user_counts = [day1_df['registered_users'].sum(), day1_df['casual_users'].sum()]
+    return user_counts_df
+
+def hourly_rentals_df(hour1_df):
+    hourly_rentals = hour_df.groupby('hour', as_index=False)['total_rentals'].sum()
+    return hourly_rentals_df
+
+def create_monthly_orders_df(day1_df):
+    day1_df['date'] = pd.to_datetime(day1_df['date'])
+    monthly_orders_df = day1_df.resample(rule='ME', on='date').agg({
+        "registered_users": "nunique",
+        "casual_users":"nunique",
+        "total_rentals": "sum"
     })
     monthly_orders_df.index = monthly_orders_df.index.strftime('%Y-%m')
     monthly_orders_df = monthly_orders_df.reset_index()
-    monthly_orders_df.rename(columns={
-        "registered": "Pengguna Terdaftar",
-        "casual":"Pengguna Tidak Terdaftar",
-        "cnt": "Total Peminjaman"
-    }, inplace=True)
-    monthly_orders_df.rename(columns={
-        "dteday": "Bulan",
-        "cnt": "Total Peminjaman"
-    }, inplace=True)
     monthly_orders_df.head()
     return monthly_orders_df
 
+day1_df = pd.read_csv("day1.csv")
+hour1_df = pd.read_csv("hour1.csv")
+day1_df["date"] = pd.to_datetime(day1_df["date"])
+hour1_df["date"] = pd.to_datetime(hour1_df["date"])
 
-all_df = pd.read_csv("all_data.csv")
-all_df["dteday"] = pd.to_datetime(all_df["dteday"])
-
-min_date = all_df["dteday"].min()
-max_date = all_df["dteday"].max()
+min_date = day1_df["date"].min()
+max_date = day1_df["date"].max()
 
 min_date = min_date.date()
 max_date = max_date.date()
@@ -50,49 +85,250 @@ max_date = max_date.date()
 with st.sidebar:
 
     start_date, end_date = st.date_input(
-        label ='Rentang Waktu', min_value = min_date, max_value= max_date,
+        label ='Filter Rentang Waktu', min_value = min_date, max_value= max_date,
         value = [min_date, max_date]
     )
-main_df = all_df [ (all_df["dteday"] >= str(start_date)) &
-                    (all_df["dteday"] <= str(end_date) ) ]
+main_df = day1_df [ (day1_df["date"] >= str(start_date)) &
+                    (day1_df["dteday"] <= str(end_date) ) ]
 
 season_rentals_df = create_season_rentals_df(main_df)
 monthly_orders_df = create_monthly_orders_df(main_df)
 
-st.header('Data Penyewaan Sepeda :bike:')
+with st.sidebar:
 
-st.subheader("Pengaruh Musim dalam Jumlah Penyewaan Sepeda")
+    min_hour = 0
+    max_hour = 23
+    start_hour, end_hour = st.slider(
+        label='Rentang Jam dalam Sehari',
+        min_value=min_hour,
+        max_value=max_hour,
+        value=[min_hour, max_hour],
+        step=1
+    )
+    
+filtered_df = hour1_df[(hour1_df["hour"] >= start_hour) & 
+                     (hour1_df["hour"] <= end_hour)]
 
-fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(35,12))
+st.header('DASHBOARD BIKE-SHARING RENTALS')
 
-colors = ["#FF69B4", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
+st.subheader("Pola Musiman pada Total Penyewaan Sepeda")
 
-sns.barplot(x="cnt", y="season", data=season_rentals_df.head(4), palette=colors,hue="season", ax=ax[0])
-ax[0].set_ylabel(None)
-ax[0].set_xlabel("Jumlah Peminjaman", fontsize=18)
-ax[0].set_title("Peminjaman Paling Banyak", loc="center", fontsize=20)
-ax[0].tick_params(axis ='x', labelsize=12)
-ax[0].tick_params(axis ='y', labelsize=12)
-
-sns.barplot(x="cnt", y="season", data=season_rentals_df.sort_values(by="cnt", ascending=True).head(4), palette=colors, hue="season", ax=ax[1])
-ax[1].set_ylabel(None)
-ax[1].set_xlabel("Jumlah Peminjaman", fontsize=18)
-ax[1].invert_xaxis()
-ax[1].yaxis.set_label_position("right")
-ax[1].yaxis.tick_right()
-ax[1].set_title("Peminjaman Paling Sedikit", loc="center", fontsize=20)
-ax[1].tick_params(axis='x', labelsize=12)
-ax[1].tick_params(axis='y', labelsize=12)
+import matplotlib.colors as mcolors
+fig, axes = plt.subplots(1, 2, figsize=(12, 8))  
+title = ['Hubungan Antara Season dan Total Penyewaan', 'Hubungan Antara Season dan Temperature']
+level = ['total_rentals', 'temperature_celsius']
+fmt = ["%d", "%g"]
+colormaps = ["Reds", "Blues"]
+    
+for plot_number in range(2):
+    ax = axes[plot_number]
+    ax.set_title(title[plot_number])
+        
+    norm = mcolors.Normalize(vmax=user_v_season[level[plot_number]].max(),
+                                 vmin=user_v_season[level[plot_number]].min())
+    cmap = plt.get_cmap(colormaps[plot_number])
+        
+    colors = {season: cmap(norm(value)) for season, value in zip(user_v_season['season'], user_v_season[level[plot_number]])}
+        
+    graph = sns.barplot(
+            data=user_v_season,
+            x='season',
+            y=level[plot_number],
+            hue='season',
+            palette=colors,
+            legend=False,
+            ax=ax
+    )
+        
+    for i in graph.containers:
+        graph.bar_label(i, color='black', fmt=fmt[plot_number])
+    
+    plt.tight_layout(pad=4.0)
 
 st.pyplot(fig)
 
-st.subheader("Total Peminjaman Sepeda per Bulan (2011-2012)")
-fig, ax = plt.subplots(figsize=(10, 5))
-ax.plot(monthly_orders_df["Bulan"], monthly_orders_df["Total Peminjaman"], marker='o', linewidth=2, color="#FF69B4")
+st.subheader("Perbandingan Total Penyewaan Sepeda pada Hari Kerja vs Akhir Pekan")
 
-ax.set_xlabel("Bulan", fontsize=12)
-ax.set_ylabel("Total Peminjaman", fontsize=12)
-plt.xticks(rotation=45)
-ax.grid(True, linestyle="--", alpha=0.6)
+fig, ax = plt.subplots(figsize=(8, 6))
+    colors = ["#D9534F", "#bbd2e2"]
 
-st.pyplot(fig)
+    graph = sns.barplot(
+        data=day_summary,
+        x="working_day",
+        y="total_rentals",
+        hue="working_day",
+        palette=colors,
+        legend=False,
+        ax=ax
+    )
+
+    for i in graph.containers:
+        graph.bar_label(i, fmt="%d", fontsize=12, color="black")
+
+    plt.title("Hubungan Hari Kerja dengan Total Penyewaan", fontsize=14)
+    plt.xlabel("Hari Kerja", fontsize=12)
+    plt.ylabel("Total Penyewaan", fontsize=12)
+    
+    st.pyplot(fig)
+
+st.subheader("Pengaruh Kondisi Cuaca pada Total Penyewaan Sepeda")
+
+    daycolors = ['#FFD700', '#B0C4DE', '#4682B4']
+    hourcolors = ['#FFD700', '#B0C4DE', '#4682B4', '#2F4F4F']
+   
+   fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+
+   graph1 = sns.barplot(
+       ax=axes[0],
+       data=day_summary1,
+       x='weather_condition',
+       y='total_rentals',
+       hue='weather_condition',
+       palette=daycolors,
+       legend=False
+   )
+   axes[0].set_title('Hubungan Cuaca & Total Penyewaan berdasarkan hari', fontsize=14)
+   axes[0].set_xlabel('Kondisi Cuaca', fontsize=12)
+   axes[0].set_ylabel('Total Penyewaan', fontsize=12)
+   
+   for i in graph1.containers:
+       graph1.bar_label(i, fmt="%d", fontsize=12, color="black")
+   
+   graph2 = sns.barplot(
+       ax=axes[1],
+       data=hour_summary1,
+       x='weather_condition',
+       y='total_rentals',
+       hue='weather_condition',
+       palette=hourcolors,
+       legend=False
+   )
+   axes[1].set_title('Hubungan Cuaca & Total Penyewaan berdasarkan jam', fontsize=14)
+   axes[1].set_xlabel('Kondisi Cuaca', fontsize=12)
+   axes[1].set_ylabel('Total Penyewaan', fontsize=12)
+   
+   for i in graph2.containers:
+       graph2.bar_label(i, fmt="%d", fontsize=12, color="black")
+
+   plt.tight_layout()
+   st.pyplot(fig)
+
+st.subheader("Total Penyewaan Sepeda dalam Seminggu")
+
+   fig, ax = plt.subplots(figsize=(8, 6))
+   
+   colors = ['#FF1493', '#FF5733', '#FF8D1A', '#FFD700', '#32CD32', '#1E90FF', '#8A2BE2']
+   
+   graph = sns.barplot(
+       data=day_summary2,
+       x='weekday',
+       y='total_rentals',
+       hue='weekday',
+       palette=colors,
+       legend=False,
+       ax=ax
+   )
+   
+   for i in graph.containers:
+       graph.bar_label(i, fmt="%d", fontsize=12, color="black")
+   
+   plt.xlabel("Hari dalam Seminggu", fontsize=12)
+   plt.ylabel("Total Penyewaan", fontsize=12)
+
+   st.pyplot(fig)
+   
+   # Menampilkan informasi tambahan (opsional)
+   max_day = day_summary2.loc[day_summary2['total_rentals'].idxmax()]['weekday']
+   min_day = day_summary2.loc[day_summary2['total_rentals'].idxmin()]['weekday']
+   
+   st.write(f"**Hari dengan penyewaan tertinggi:** {max_day}")
+   st.write(f"**Hari dengan penyewaan terendah:** {min_day}")
+
+st.subheader("Total Penyewaan Sepeda per Bulan")
+
+   fig, ax = plt.subplots(figsize=(10, 6))
+  
+   colors = sns.color_palette("pastel", 12)
+
+   graph = sns.barplot(
+       data=month_summary,
+       x='month',
+       y='total_rentals',
+       palette=colors,
+       ax=ax
+   )
+
+   for i in graph.containers:
+       graph.bar_label(i, fmt="%d", fontsize=11, color="black", label_type="edge", padding=3)
+
+   plt.xticks(rotation=45, ha="right")
+
+   plt.title("Hubungan Bulan dengan Total Penyewaan", fontsize=14)
+   plt.xlabel("Bulan", fontsize=12)
+   plt.ylabel("Total Penyewaan", fontsize=12)
+   
+   plt.tight_layout()
+   st.pyplot(fig)
+   
+  st.subheader("Rasio Total dari Pengguna Terdaftar dan Pengguna Kasual")
+
+   fig, ax = plt.subplots(figsize=(7, 7))
+  
+   plt.pie(
+       user_counts,
+       labels=labels,
+       autopct='%1.1f%%',
+       colors=colors,
+       startangle=90,
+       wedgeprops={'edgecolor': 'black'}
+   )
+
+   plt.title("Perbandingan Pengguna Terdaftar vs Pengguna Kasual", fontsize=14)
+
+   plt.axis('equal')
+
+   st.pyplot(fig)
+   
+    st.subheader("Tren Total Penyewaan Sepeda dari Waktu ke Waktu")
+    fig, ax = plt.subplots(figsize=(10, 5))
+
+    sns.lineplot(
+        data=hour_df.groupby('hour', as_index=False)['total_rentals'].sum(),
+        x='hour',
+        y='total_rentals',
+        marker='o',  # Tambahkan titik di setiap jam
+        color='royalblue',  # Warna garis
+        linewidth=2,
+        ax=ax
+    )
+
+    ax.set_title('Tren Penyewaan Sepeda per Jam', fontsize=14)
+    ax.set_xlabel('Jam dalam Sehari', fontsize=12)
+    ax.set_ylabel('Total Penyewaan', fontsize=12)
+
+    ax.grid(axis='y', linestyle='--', alpha=0.7)
+    
+    st.pyplot(fig)
+
+    fig, ax = plt.subplots(figsize=(12, 6))
+
+    sns.lineplot(
+        data=monthly_rentals, 
+        x='year_month', 
+        y='total_rentals', 
+        marker='o', 
+        color='b',
+        ax=ax
+    )
+
+    ax.set_title('Tren Total Penyewaan Per Bulan (2011-2012)', fontsize=14)
+    ax.set_xlabel('Bulan', fontsize=12)
+    ax.set_ylabel('Total Penyewaan', fontsize=12)
+    
+    plt.xticks(rotation=45)
+
+    ax.grid(True, linestyle='--', alpha=0.5)
+    
+    plt.tight_layout()
+    
+    st.pyplot(fig)
