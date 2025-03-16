@@ -174,23 +174,24 @@ st.pyplot(fig)
 
 st.subheader("Pengaruh Kondisi Cuaca pada Total Penyewaan Sepeda")
 
-    daycolors = ['#FFD700', '#B0C4DE', '#4682B4']
-    hourcolors = ['#FFD700', '#B0C4DE', '#4682B4', '#2F4F4F']
-   
-   fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+daycolors = ['#FFD700', '#B0C4DE', '#4682B4']
+hourcolors = ['#FFD700', '#B0C4DE', '#4682B4', '#2F4F4F']
 
-   graph1 = sns.barplot(
-       ax=axes[0],
-       data=day_summary1,
-       x='weather_condition',
-       y='total_rentals',
-       hue='weather_condition',
-       palette=daycolors,
-       legend=False
-   )
-   axes[0].set_title('Hubungan Cuaca & Total Penyewaan berdasarkan hari', fontsize=14)
-   axes[0].set_xlabel('Kondisi Cuaca', fontsize=12)
-   axes[0].set_ylabel('Total Penyewaan', fontsize=12)
+fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+
+graph1 = sns.barplot(
+    ax=axes[0],
+    data=day_summary1,
+    x='weather_condition',
+    y='total_rentals',
+    hue='weather_condition',
+    palette=daycolors,
+    legend=False
+)
+
+axes[0].set_title('Hubungan Cuaca & Total Penyewaan berdasarkan hari', fontsize=14)
+axes[0].set_xlabel('Kondisi Cuaca', fontsize=12)
+axes[0].set_ylabel('Total Penyewaan', fontsize=12)
    
    for i in graph1.containers:
        graph1.bar_label(i, fmt="%d", fontsize=12, color="black")
