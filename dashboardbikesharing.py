@@ -149,9 +149,9 @@ st.pyplot(fig)
 
 st.subheader("Perbandingan Total Penyewaan Sepeda pada Hari Kerja vs Akhir Pekan")
 
-fig, ax = plt.subplots(figsize=(8, 6))
+    fig, ax = plt.subplots(figsize=(8, 6))
     colors = ["#D9534F", "#BBD2E2"]
-
+    
     graph = sns.barplot(
         data=day_summary,
         x="working_day",
