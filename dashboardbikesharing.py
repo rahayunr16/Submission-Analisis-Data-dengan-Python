@@ -37,8 +37,8 @@ def create_monthly_orders_df(all_df):
     monthly_orders_df.head()
     return monthly_orders_df
 
-dashboard_alldata_csv="/content/drive/MyDrive/LASKAR AI/SUBMISSION/demo2/all_data.csv"
-all_df = pd.read_csv(dashboard_alldata_csv)
+
+all_df = pd.read_csv("all_data.csv")
 all_df["dteday"] = pd.to_datetime(all_df["dteday"])
 
 min_date = all_df["dteday"].min()
