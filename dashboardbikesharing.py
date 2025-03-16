@@ -122,7 +122,7 @@ for plot_number in range(2):
     ax.set_title(title[plot_number])
         
     graph = sns.barplot(
-            data=user_v_season,
+            data=user_v_season_df,
             x='season',
             y=level[plot_number],
             hue='season',
