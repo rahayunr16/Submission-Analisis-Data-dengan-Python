@@ -13,26 +13,26 @@ import seaborn as sns
 import streamlit as st
 
 def create_user_v_season_df(day1_df):
-    user_v_season_df = day1_df.groupby("season", as_index=False)["total_rentals"].sum()
+    user_v_season = day1_df.groupby("season", as_index=False)["total_rentals"].sum()
     return user_v_season_df
 
 def day_summary_df(day1_df):
-    day_summary_df = day1_df.groupby("working_day", as_index=False)["total_rentals"].sum()
+    day_summary = day1_df.groupby("working_day", as_index=False)["total_rentals"].sum()
     return day_summary_df
 
 def day_summary1_df(day1_df):
-    day_summary1_df = day1_df.groupby('weather_condition', as_index=False)['total_rentals'].sum()
+    day_summary1 = day1_df.groupby('weather_condition', as_index=False)['total_rentals'].sum()
     return day_summary1_df
     
 def hour_summary1(hour1_df):
-    hour_summary1_df = hour1_df.groupby('weather_condition', as_index=False)['total_rentals'].sum()
+    hour_summary1 = hour1_df.groupby('weather_condition', as_index=False)['total_rentals'].sum()
     return hour_summary1_df
 
 order = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 def day_summary2_df(day1_df):
-    day_summary2_df = day1_df.groupby('weekday', as_index=False)['total_rentals'].sum()
-    day_summary2_df['weekday'] = pd.Categorical(day_summary2['weekday'], categories=order, ordered=True)
-    day_summary2_df = day_summary2.sort_values('weekday')
+    day_summary2 = day1_df.groupby('weekday', as_index=False)['total_rentals'].sum()
+    day_summary2['weekday'] = pd.Categorical(day_summary2['weekday'], categories=order, ordered=True)
+    day_summary2 = day_summary2.sort_values('weekday')
     return day_summary2_df
 
 def month_summary_df(day1_df):
@@ -110,7 +110,7 @@ st.subheader("Pola Musiman pada Total Penyewaan Sepeda")
 fig, ax = plt.subplots(figsize=(6, 6))
 
 graph = sns.barplot(
-    data=user_v_season_df,
+    data=user_v_season,
     x='season',
     y='total_rentals',
     ax=ax
@@ -130,7 +130,7 @@ fig, ax = plt.subplots(figsize=(8, 6))
 colors = ["#D9534F", "#BBD2E2"]
 
 graph = sns.barplot(
-    data=day_summary_df,
+    data=day_summary,
     x="working_day",
     y="total_rentals",
     hue="working_day",
