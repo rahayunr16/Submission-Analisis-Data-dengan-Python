@@ -116,6 +116,8 @@ level = ['total_rentals', 'temperature_celsius']
 fmt = ["%d", "%g"]
 colormaps = ["Reds", "Blues"]
 
+user_v_season[level[plot_number]] = pd.to_numeric(user_v_season[level[plot_number]], errors='coerce')
+
 fig, ax = plt.subplots(1, 2, figsize=(12, 6))
 
 for plot_number in range(2):
