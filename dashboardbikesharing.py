@@ -110,31 +110,39 @@ st.header('DASHBOARD BIKE-SHARING RENTALS')
 
 st.subheader("Pola Musiman pada Total Penyewaan Sepeda")
 
-import matplotlib.colors as mcolors
-fig, axes = plt.subplots(1, 2, figsize=(12, 8))  
+import matplotlib.colors as mcolors 
 title = ['Hubungan Antara Season dan Total Penyewaan', 'Hubungan Antara Season dan Temperature']
 level = ['total_rentals', 'temperature_celsius']
 fmt = ["%d", "%g"]
 colormaps = ["Reds", "Blues"]
-    
+
+fig, ax = plt.subplots(1, 2, figsize=(12, 6))
+
 for plot_number in range(2):
-    ax = axes[plot_number]
-    ax.set_title(title[plot_number])
-        
+    norm = mcolors.Normalize(vmax=user_v_season[level[plot_number]].max(),
+                             vmin=user_v_season[level[plot_number]].min())
+    cmap = plt.get_cmap(colormaps[plot_number])
+
+    colors = {season: cmap(norm(value)) for season, value in zip(user_v_season['season'], user_v_season[level[plot_number]])}
+
     graph = sns.barplot(
-            data=user_v_season_df,
-            x='season',
-            y=level[plot_number],
-            hue='season',
-            palette=colors,
-            legend=False,
-            ax=ax
+        data=user_v_season,
+        x='season',
+        y=level[plot_number],
+        hue='season',
+        palette=colors,
+        legend=False,
+        ax=ax[plot_number]
     )
-        
+
+    ax[plot_number].set_title(title[plot_number], fontsize=12)
+    ax[plot_number].set_xlabel("Musim", fontsize=10)
+    ax[plot_number].set_ylabel(level[plot_number], fontsize=10)
+
     for i in graph.containers:
         graph.bar_label(i, color='black', fmt=fmt[plot_number])
-    
-    plt.tight_layout(pad=4.0)
+
+plt.tight_layout()
 
 st.pyplot(fig)
 
