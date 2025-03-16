@@ -47,7 +47,7 @@ def month_summary_df(day1_df):
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
     ]
-    month_summary['month'] = pd.Categorical(month_summary['month'], categories=order, ordered=True)\
+    month_summary['month'] = pd.Categorical(month_summary['month'], categories=order, ordered=True)
     month_summary = month_summary.sort_values('month')
     return month_summary_df
 
