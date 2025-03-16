@@ -232,13 +232,13 @@ graph = sns.barplot(
     ax=ax
 )
    
-   for i in graph.containers:
-       graph.bar_label(i, fmt="%d", fontsize=12, color="black")
-   
-   plt.xlabel("Hari dalam Seminggu", fontsize=12)
-   plt.ylabel("Total Penyewaan", fontsize=12)
+for i in graph.containers:
+    graph.bar_label(i, fmt="%d", fontsize=12, color="black")
 
-   st.pyplot(fig)
+plt.xlabel("Hari dalam Seminggu", fontsize=12)
+plt.ylabel("Total Penyewaan", fontsize=12)
+
+st.pyplot(fig)
    
    # Menampilkan informasi tambahan (opsional)
    max_day = day_summary2.loc[day_summary2['total_rentals'].idxmax()]['weekday']
