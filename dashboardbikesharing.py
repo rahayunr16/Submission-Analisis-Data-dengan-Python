@@ -104,25 +104,6 @@ filtered_df = hour1_df[(hour1_df["hour"] >= start_hour) &
 
 st.header('DASHBOARD BIKE-SHARING RENTALS')
 
-st.subheader("Pola Musiman pada Total Penyewaan Sepeda")
-
-fig, ax = plt.subplots(figsize=(6, 6))
-
-graph = sns.barplot(
-    data=user_v_season,
-    x='season',
-    y='total_rentals',
-    ax=ax
-)
-
-for i in graph.containers:
-    graph.bar_label(i, fmt="%d", fontsize=12, color="black")
-
-plt.xlabel("Season", fontsize=12)
-plt.ylabel("Total Rentals", fontsize=12)
-
-st.pyplot(fig)
-
 st.subheader("Perbandingan Total Penyewaan Sepeda pada Hari Kerja vs Akhir Pekan")
 
 fig, ax = plt.subplots(figsize=(8, 6))  
