@@ -91,9 +91,6 @@ with st.sidebar:
 main_df = day1_df [ (day1_df["date"] >= str(start_date)) &
                     (day1_df["date"] <= str(end_date) ) ]
 
-season_rentals_df = create_season_rentals_df(main_df)
-monthly_orders_df = create_monthly_orders_df(main_df)
-
 with st.sidebar:
 
     min_hour = 0
