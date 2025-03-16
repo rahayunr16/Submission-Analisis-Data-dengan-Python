@@ -239,14 +239,7 @@ plt.xlabel("Hari dalam Seminggu", fontsize=12)
 plt.ylabel("Total Penyewaan", fontsize=12)
 
 st.pyplot(fig)
-   
-   # Menampilkan informasi tambahan (opsional)
-   max_day = day_summary2.loc[day_summary2['total_rentals'].idxmax()]['weekday']
-   min_day = day_summary2.loc[day_summary2['total_rentals'].idxmin()]['weekday']
-   
-   st.write(f"**Hari dengan penyewaan tertinggi:** {max_day}")
-   st.write(f"**Hari dengan penyewaan terendah:** {min_day}")
-
+ 
 st.subheader("Total Penyewaan Sepeda per Bulan")
 
    fig, ax = plt.subplots(figsize=(10, 6))
