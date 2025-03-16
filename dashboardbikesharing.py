@@ -13,12 +13,9 @@ import seaborn as sns
 import streamlit as st
 
 def create_user_v_season_df(day1_df):
-    user_v_season = round(day1_df.groupby(by=['season']).agg({
-    'temperature_celsius': 'mean',
-    'feels_like_temperature': 'mean',
-    'total_rentals': 'sum'}), 
-    2).reset_index().sort_values(by='total_rentals', ascending=False)
-    return user_v_season_df
+    user_v_season = day1_dt.groupby("season", as_index=False)["total_rentals"].sum()+
+    return user_v_season_df  
+
 
 def day_summary_df(day1_df):
     day_summary = day1_df.groupby("working_day", as_index=False)["total_rentals"].sum()
