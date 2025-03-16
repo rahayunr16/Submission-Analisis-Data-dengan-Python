@@ -110,43 +110,35 @@ st.header('DASHBOARD BIKE-SHARING RENTALS')
 
 st.subheader("Pola Musiman pada Total Penyewaan Sepeda")
 
-import matplotlib.colors as mcolors 
-title = ['Hubungan Antara Season dan Total Penyewaan', 'Hubungan Antara Season dan Temperature']
-level = ['total_rentals', 'temperature_celsius']
-fmt = ["%d", "%g"]
-colormaps = ["Reds", "Blues"]
+    titles = ['Hubungan Antara Season dan Total Penyewaan', 'Hubungan Antara Season dan Temperature']
+    levels = ['total_rentals', 'temperature_celsius']
+    colormaps = ["Reds", "Blues"]
+    fmt = ["%d", "%g"]
 
-user_v_season[level[plot_number]] = pd.to_numeric(user_v_season[level[plot_number]], errors='coerce')
+    fig, axes = plt.subplots(1, 2, figsize=(12, 6))
 
-fig, ax = plt.subplots(1, 2, figsize=(12, 6))
+    for ax, title, level, cmap_name, fmt_label in zip(axes, titles, levels, colormaps, fmt):
+        if level not in user_v_season.columns:
+            st.warning(f"Kolom {level} tidak ditemukan dalam dataset.")
+            continue
 
-for plot_number in range(2):
-    norm = mcolors.Normalize(vmax=user_v_season[level[plot_number]].max(),
-                             vmin=user_v_season[level[plot_number]].min())
-    cmap = plt.get_cmap(colormaps[plot_number])
+        # Normalisasi warna
+        norm = mcolors.Normalize(vmax=user_v_season[level].max(), vmin=user_v_season[level].min())
+        cmap = plt.get_cmap(cmap_name)
+        colors = {season: cmap(norm(value)) for season, value in zip(user_v_season['season'], user_v_season[level])}
 
-    colors = {season: cmap(norm(value)) for season, value in zip(user_v_season['season'], user_v_season[level[plot_number]])}
+        # Plot bar chart
+        sns.barplot(data=user_v_season, x='season', y=level, hue='season', palette=colors, legend=False, ax=ax)
+        ax.set_title(title)
+        ax.set_xlabel("Season")
+        ax.set_ylabel(level.replace("_", " ").capitalize())
 
-    graph = sns.barplot(
-        data=user_v_season,
-        x='season',
-        y=level[plot_number],
-        hue='season',
-        palette=colors,
-        legend=False,
-        ax=ax[plot_number]
-    )
+        # Tambahkan label ke batang
+        for container in ax.containers:
+            ax.bar_label(container, fmt=fmt_label, color='black')
 
-    ax[plot_number].set_title(title[plot_number], fontsize=12)
-    ax[plot_number].set_xlabel("Musim", fontsize=10)
-    ax[plot_number].set_ylabel(level[plot_number], fontsize=10)
-
-    for i in graph.containers:
-        graph.bar_label(i, color='black', fmt=fmt[plot_number])
-
-plt.tight_layout()
-
-st.pyplot(fig)
+    plt.tight_layout()
+    st.pyplot(fig)
 
 st.subheader("Perbandingan Total Penyewaan Sepeda pada Hari Kerja vs Akhir Pekan")
 
