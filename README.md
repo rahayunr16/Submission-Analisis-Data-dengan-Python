@@ -80,18 +80,7 @@ Kemudian, file dataset day.csv dan hour.csv diakses dari Google Drive:
 `hour_df = pd.read_csv(hourdataset)`
 
 **3.  Menjalankan Streamlit''
-Jika di Google Colab
-`!pip install streamlit pyngrok`
 
-`from pyngrok import ngrok`
-
-`!streamlit run dashboardbikesharing.py &>/dev/null 
-
-`url = ngrok.connect(port='8501')`
-
-`print(f"🎯 Buka dashboard di: {url}")`
-
-Jika di PC/Laptop:
 `streamlit run dashboardbikesharing.py`
 
 **Struktur Proyek**
