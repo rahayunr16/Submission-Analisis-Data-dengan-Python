@@ -122,18 +122,11 @@ st.subheader("Pola Musiman pada Total Penyewaan Sepeda")
             st.warning(f"Kolom {level} tidak ditemukan dalam dataset.")
             continue
 
-        # Normalisasi warna
-        norm = mcolors.Normalize(vmax=user_v_season[level].max(), vmin=user_v_season[level].min())
-        cmap = plt.get_cmap(cmap_name)
-        colors = {season: cmap(norm(value)) for season, value in zip(user_v_season['season'], user_v_season[level])}
-
-        # Plot bar chart
         sns.barplot(data=user_v_season, x='season', y=level, hue='season', palette=colors, legend=False, ax=ax)
         ax.set_title(title)
         ax.set_xlabel("Season")
         ax.set_ylabel(level.replace("_", " ").capitalize())
 
-        # Tambahkan label ke batang
         for container in ax.containers:
             ax.bar_label(container, fmt=fmt_label, color='black')
 
