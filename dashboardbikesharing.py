@@ -110,28 +110,23 @@ st.header('DASHBOARD BIKE-SHARING RENTALS')
 
 st.subheader("Pola Musiman pada Total Penyewaan Sepeda")
 
-    titles = ['Hubungan Antara Season dan Total Penyewaan', 'Hubungan Antara Season dan Temperature']
-    levels = ['total_rentals', 'temperature_celsius']
-    colormaps = ["Reds", "Blues"]
-    fmt = ["%d", "%g"]
+fig, ax = plt.subplots(figsize=(6, 6))
+ax.set_title('Hubungan Antara Season dan Total Penyewaan')
 
-    fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+sns.barplot(
+    data=user_v_season,
+    x='season',
+    y='total_rentals',
+    ax=ax
+)
 
-    for ax, title, level, cmap_name, fmt_label in zip(axes, titles, levels, colormaps, fmt):
-        if level not in user_v_season.columns:
-            st.warning(f"Kolom {level} tidak ditemukan dalam dataset.")
-            continue
+for container in ax.containers:
+    ax.bar_label(container, fmt="%d", color='black')
 
-        sns.barplot(data=user_v_season, x='season', y=level, hue='season', palette=colors, legend=False, ax=ax)
-        ax.set_title(title)
-        ax.set_xlabel("Season")
-        ax.set_ylabel(level.replace("_", " ").capitalize())
+ax.set_xlabel("Season")
+ax.set_ylabel("Total Rentals")
 
-        for container in ax.containers:
-            ax.bar_label(container, fmt=fmt_label, color='black')
-
-    plt.tight_layout()
-    st.pyplot(fig)
+st.pyplot(fig)
 
 st.subheader("Perbandingan Total Penyewaan Sepeda pada Hari Kerja vs Akhir Pekan")
 
