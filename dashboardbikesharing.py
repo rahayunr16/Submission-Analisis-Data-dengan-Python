@@ -13,7 +13,7 @@ import seaborn as sns
 import streamlit as st
 
 def create_user_v_season_df(day1_df):
-    user_v_season = day1_dt.groupby("season", as_index=False)["total_rentals"].sum()+
+    user_v_season = day1_df.groupby("season", as_index=False)["total_rentals"].sum()+
     return user_v_season_df  
 
 
