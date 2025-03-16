@@ -121,12 +121,6 @@ for plot_number in range(2):
     ax = axes[plot_number]
     ax.set_title(title[plot_number])
         
-    norm = mcolors.Normalize(vmax=user_v_season[level[plot_number]].max(),
-                                 vmin=user_v_season[level[plot_number]].min())
-    cmap = plt.get_cmap(colormaps[plot_number])
-        
-    colors = {season: cmap(norm(value)) for season, value in zip(user_v_season['season'], user_v_season[level[plot_number]])}
-        
     graph = sns.barplot(
             data=user_v_season,
             x='season',
