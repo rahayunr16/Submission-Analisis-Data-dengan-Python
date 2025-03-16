@@ -218,19 +218,19 @@ st.pyplot(fig)
 
 st.subheader("Total Penyewaan Sepeda dalam Seminggu")
 
-   fig, ax = plt.subplots(figsize=(8, 6))
-   
-   colors = ['#FF1493', '#FF5733', '#FF8D1A', '#FFD700', '#32CD32', '#1E90FF', '#8A2BE2']
-   
-   graph = sns.barplot(
-       data=day_summary2,
-       x='weekday',
-       y='total_rentals',
-       hue='weekday',
-       palette=colors,
-       legend=False,
-       ax=ax
-   )
+fig, ax = plt.subplots(figsize=(8, 6))
+
+colors = ['#FF1493', '#FF5733', '#FF8D1A', '#FFD700', '#32CD32', '#1E90FF', '#8A2BE2']
+
+graph = sns.barplot(
+    data=day_summary2,
+    x='weekday',
+    y='total_rentals',
+    hue='weekday',
+    palette=colors,
+    legend=False,
+    ax=ax
+)
    
    for i in graph.containers:
        graph.bar_label(i, fmt="%d", fontsize=12, color="black")
