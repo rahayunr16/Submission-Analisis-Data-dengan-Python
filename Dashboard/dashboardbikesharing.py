@@ -188,4 +188,3 @@ st.subheader("Insight")
 
 st.write(f"Jumlah penyewaan tertinggi: {monthly_sf['total_rentals'].max():,}")
 st.write(f"Jumlah penyewaan terendah: {monthly_sf['total_rentals'].min():,}")
-st.write(f"Rata-rata penyewaan per bulan: {monthly_sf['total_rentals'].mean()::,}")
