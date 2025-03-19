@@ -136,6 +136,7 @@ st.subheader("Rasio Total dari Pengguna Terdaftar dan Pengguna Kasual")
 
 user_counts = create_user_counts_df(day1_df)
 labels = ['Registered Users', 'Casual Users']
+colors = plt.cm.viridis([0.2, 0.8]) 
 
 fig, ax = plt.subplots(figsize=(8, 8))
 
@@ -143,7 +144,7 @@ ax.pie(
     user_counts,
     labels=labels,
     autopct='%1.1f%%',
-    palette="viridis",
+    colors=colors,
     startangle=90,
     wedgeprops={'edgecolor': 'white', 'linewidth': 1}
 )
