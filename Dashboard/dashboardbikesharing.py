@@ -40,13 +40,12 @@ st.subheader("Jumlah Total Rentals berdasarkan Season")
 
 season_df = create_user_v_season_df(main_df)
 
-    # Jika season sudah dalam bentuk nama
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.barplot(x="season", y="total_rentals", data=season_df, ax=ax)
-    ax.set_title("Jumlah Total Rentals per Season")
-    ax.set_xlabel("Season")
-    ax.set_ylabel("Total Rentals")
-    st.pyplot(fig)
+fig, ax = plt.subplots(figsize=(10, 6))
+sns.barplot(x="season", y="total_rentals", data=season_df, ax=ax)
+ax.set_title("Jumlah Total Rentals per Season")
+ax.set_xlabel("Season")
+ax.set_ylabel("Total Rentals")
+st.pyplot(fig)
 
 st.subheader("Statistik Total Rentals")
 st.write(f"Total seluruh rentals: {main_df['total_rentals'].sum()}")
