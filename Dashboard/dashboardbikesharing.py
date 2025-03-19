@@ -26,7 +26,7 @@ def create_weekday_df(day1_df):
     weekday_df = weekday_df.sort_values('weekday')
     return weekday_df
 
-month_order = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+month_order = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "Desember"]
 def create_month_df(day1_df):
     month_df = day1_df.groupby('month', as_index=False)['total_rentals'].sum()
     month_df['month'] = pd.Categorical(month_df['month'], categories=month_order, ordered=True)
