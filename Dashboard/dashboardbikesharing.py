@@ -5,10 +5,9 @@ import streamlit as st
 
 
 day1_df = pd.read_csv("Dashboard/day1_data.csv")
-hour1_df = pd.read_csv("Dashboard/hour1_data.csv")
 
 def create_user_v_season_df(day1_df):
-    user_v_season = day1_df.groupby("season", as_index=False)["total_rentals"].sum()
+    user_v_season_df = day1_df.groupby("season", as_index=False)["total_rentals"].sum()
     return user_v_season_df
 
 def day_summary_df(day1_df):
@@ -19,9 +18,7 @@ def day_summary1_df(day1_df):
     day_summary1 = day1_df.groupby('weather_condition', as_index=False)['total_rentals'].sum()
     return day_summary1_df
     
-def hour_summary1(hour1_df):
-    hour_summary1 = hour1_df.groupby('weather_condition', as_index=False)['total_rentals'].sum()
-    return hour_summary1_df
+
 
 order = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 def day_summary2_df(day1_df):
@@ -45,10 +42,6 @@ def month_summary_df(day1_df):
 def user_counts_df(day1_df):
     user_counts = [day1_df['registered_users'].sum(), day1_df['casual_users'].sum()]
     return user_counts_df
-
-def hourly_rentals_df(hour1_df):
-    hourly_rentals = hour_df.groupby('hour', as_index=False)['total_rentals'].sum()
-    return hourly_rentals_df
 
 def create_monthly_orders_df(day1_df):
     day1_df['date'] = pd.to_datetime(day1_df['date'])
