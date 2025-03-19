@@ -37,6 +37,17 @@ def create_user_counts_df(day1_df):
     user_counts_df = [day1_df['registered_users'].sum(), day1_df['casual_users'].sum()]
     return user_counts_df
 
+def create_monthly_orders_df(day1_df):
+    day1_df['date'] = pd.to_datetime(day1_df['date'])
+    monthly_orders_df = day1_df.resample(rule='M', on='date').agg({
+        "registered_users": "nunique",  # Mungkin perlu diganti dengan "count" jika ini adalah jumlah dan bukan ID unik
+        "casual_users": "nunique",      # Mungkin perlu diganti dengan "count" jika ini adalah jumlah dan bukan ID unik
+        "total_rentals": "sum"
+    })
+    monthly_orders_df.index = monthly_orders_df.index.strftime('%Y-%m')
+    monthly_orders_df = monthly_orders_df.reset_index()
+    return monthly_orders_df
+    
 min_date = day1_df["date"].min().date()
 max_date = day1_df["date"].max().date()
 
@@ -150,3 +161,24 @@ st.pyplot(fig)
 st.subheader("Insight")
 st.write(f"Banyaknya Pengguna Terdaftar: {user_counts[0]:,}")
 st.write(f"Banyaknya Pengguna Kasual: {user_counts[1]:,}")
+
+
+st.subheader("Tren Total Penyewaan Sepeda dari Waktu ke Waktu")
+
+fig, ax = plt.subplots(figsize=(12, 6))
+
+sns.lineplot(
+    data=monthly_rentals,
+    x='date', 
+    y='total_rentals',
+    marker='o',
+    color='b',
+    ax=ax
+)
+
+ax.set_xlabel('Bulan')
+ax.set_ylabel('Total Penyewaan')
+plt.xticks(rotation=45)
+ax.grid(True, linestyle='--', alpha=0.5)
+plt.tight_layout()
+st.pyplot(fig)
