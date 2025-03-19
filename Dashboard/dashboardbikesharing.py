@@ -76,7 +76,7 @@ st.subheader("Pengaruh Kondisi Cuaca pada Total Penyewaan Sepeda")
 
 condition_sf=create_condition_day_df(main_df)
 
-fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+fig, ax = plt.subplots(figsize=(10, 6))
 sns.barplot(x="weather_condition",y="total_rentals", data=condition_sf, ax=ax)
 ax.set_title('Hubungan Cuaca & Total Penyewaan')
 ax.set_xlabel('Kondisi Cuaca')
