@@ -38,6 +38,17 @@ st.write(f"Periode data: {start_date} sampai {end_date}")
 
 st.subheader("Jumlah Total Rentals berdasarkan Season")
 
+selected_seasons = st.multiselect(
+    "Pilih Season yang ingin ditampilkan:",
+    options="season",
+    default="season"
+)
+
+# Filter dataframe berdasarkan season yang dipilih
+if selected_seasons:
+    filtered_df = main_df[main_df["season"].isin(selected_seasons)]
+else:
+    filtered_df = main_df  # Jika tidak ada yang dipilih, tampilkan semua
 season_df = create_user_v_season_df(main_df)
 
 fig, ax = plt.subplots(figsize=(10, 6))
