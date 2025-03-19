@@ -38,13 +38,13 @@ st.write(f"Periode data: {start_date} sampai {end_date}")
 
 st.subheader("Jumlah Total Rentals berdasarkan Season")
 
+all_seasons = ["Spring", "Summer", "Fall", "Winter"]
 selected_seasons = st.multiselect(
     "Pilih Season yang ingin ditampilkan:",
-    options="season",
-    default="season"
+    options=all_season,
+    default=all_season
 )
 
-# Filter dataframe berdasarkan season yang dipilih
 if selected_seasons:
     filtered_df = main_df[main_df["season"].isin(selected_seasons)]
 else:
