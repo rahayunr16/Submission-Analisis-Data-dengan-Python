@@ -71,4 +71,4 @@ ax.set_ylabel("Total Rentals")
 st.pyplot(fig)
 
 st.subheader("Insight")
-    st.write("Total rentals pada hari kerja lebih banyak dibandingkan akhir pekan.")
+st.write("Total rentals pada hari kerja lebih banyak dibandingkan akhir pekan.")
