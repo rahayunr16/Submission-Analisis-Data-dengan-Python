@@ -18,7 +18,23 @@ def create_workingday_summary_df(day1_df):
 def create_condition_day_df(day1_df):
     condition_day_df = day1_df.groupby('weather_condition', as_index=False)['total_rentals'].sum()
     return condition_day_df
+    
+def create_weekday_df(day1_df):
+    weekday_df = day1_df.groupby('weekday', as_index=False)['total_rentals'].sum()
+    weekday_df['weekday'] = pd.Categorical(weekday_df['weekday'], categories=order, ordered=True)
+    order = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    weekday_df = weekday_df.sort_values('weekday')
+    return weekday_df
 
+def create_month_df(day1_df):
+    day1_df['month'] = day1_df['month'].astype(str)
+    month_df = day1_df.groupby('month', as_index=False)['total_rentals'].sum()
+    month_df = month_df.dropna(subset=['month'])
+    order = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    month_df['month'] = pd.Categorical(month_df['month'], categories=order, ordered=True)
+    month_df = month_df.sort_values('month')
+    return month_df
+    
 min_date = day1_df["date"].min().date()
 max_date = day1_df["date"].max().date()
 
@@ -83,17 +99,9 @@ ax.set_xlabel('Kondisi Cuaca')
 ax.set_ylabel('Total Penyewaan')
 st.pyplot(fig)
 
+st.subheader("Total Penyewaan Sepeda per Hari")
 
-order = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-def weekday_df(day1_df):
-    weekday_df = day1_df.groupby('weekday', as_index=False)['total_rentals'].sum()
-    weekday_df['weekday'] = pd.Categorical(weekday_df['weekday'], categories=order, ordered=True)
-    weekday_df = weekday_df.sort_values('weekday')
-    return weekday_df
-
-st.subheader("Total Penyewaan Sepeda per Hari dalam Seminggu")
-
-weekday_sf = weekday_df(main_df)  
+weekday_sf = create_weekday_df(main_df)  
 
 fig, ax = plt.subplots(figsize=(10, 6))
 sns.barplot(x="weekday", y="total_rentals", data=weekday_sf, ax=ax, palette="viridis")
@@ -105,3 +113,20 @@ st.pyplot(fig)
 st.subheader("Insight")
 st.write(f"Hari dengan rentals tertinggi: {weekday_sf.loc[weekday_sf['total_rentals'].idxmax(), 'weekday' if 'weekday_name' not in weekday_sf.columns else 'weekday_name']}")
 st.write(f"Hari dengan rentals terendah: {weekday_sf.loc[weekday_sf['total_rentals'].idxmin(), 'weekday' if 'weekday_name' not in weekday_sf.columns else 'weekday_name']}")
+
+st.subheader("Total Penyewaan Sepeda per Bulan")
+
+month_sf = create_month_df(day1_df)
+
+fig, ax = plt.subplots(figsize=(12, 6))
+ax.bar(month_df['month'], month_df['total_rentals'])
+ax.set_title("Hubungan Bulan dengan Total Penyewaan")
+ax.set_xlabel("Bulan")
+ax.set_ylabel("Total Penyewaan")
+plt.tight_layout()
+st.pyplot(fig)
+
+st.subheader("Insight")
+st.write(f"Bulan dengan rentals tertinggi: {month_sf.loc[month_sf['total_rentals'].idxmax(), 'month' if 'month_name' not in month_sf.columns else 'month_name']}")
+st.write(f"Bulan dengan rentals terendah: {month_sf.loc[month_sf['total_rentals'].idxmin(), 'month' if 'month_name' not in month_sf.columns else 'month_name']}")
+
