@@ -136,15 +136,23 @@ st.subheader("Rasio Total dari Pengguna Terdaftar dan Pengguna Kasual")
 
 user_counts = create_user_counts_df(day1_df)
 labels = ['Registered Users', 'Casual Users']
-fig, ax = plt.subplots(figsize=(7, 7))
-ax.pie(
-    user_counts,
+
+fig = px.bar_polar(
+  user_counts,
     labels=labels,
     autopct='%1.1f%%',
     palette="viridis",
     startangle=90,
     wedgeprops={'edgecolor': 'black'}
 )
-ax.set_title("Perbandingan Pengguna Terdaftar vs Pengguna Kasual", fontsize=14)
-ax.axis('equal')
-st.pyplot(fig)
+fig.update_layout(
+    polar=dict(
+        radialaxis=dict(
+            visible=True,
+            showticklabels=True
+        )
+    ),
+    width=700,
+    height=700
+)
+st.plotly_chart(fig)
