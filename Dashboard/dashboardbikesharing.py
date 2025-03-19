@@ -115,8 +115,8 @@ st.subheader("Total Penyewaan Sepeda per Bulan")
 
 month_sf = create_month_df(day1_df)
 
-fig, ax = plt.subplots(figsize=(12, 6))
-ax.bar(month_df['month'], month_df['total_rentals'])
+fig, ax = plt.subplots(figsize=(10, 6))
+sns.barplot(x="month", y="total_rentals", data=month_sf, ax=ax, palette="viridis")
 ax.set_title("Hubungan Bulan dengan Total Penyewaan")
 ax.set_xlabel("Bulan")
 ax.set_ylabel("Total Penyewaan")
