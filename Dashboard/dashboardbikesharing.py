@@ -137,7 +137,7 @@ st.subheader("Rasio Total dari Pengguna Terdaftar dan Pengguna Kasual")
 user_counts = create_user_counts_df(day1_df)
 labels = ['Registered Users', 'Casual Users']
 fig, ax = plt.subplots(figsize=(7, 7))
-plt.pie(
+ax.pie(
     user_counts,
     labels=labels,
     autopct='%1.1f%%',
@@ -145,6 +145,6 @@ plt.pie(
     startangle=90,
     wedgeprops={'edgecolor': 'black'}
 )
-plt.title("Perbandingan Pengguna Terdaftar vs Pengguna Kasual", fontsize=14)
-plt.axis('equal')
+ax.set_title("Perbandingan Pengguna Terdaftar vs Pengguna Kasual", fontsize=14)
+ax.axis('equal')
 st.pyplot(fig)
