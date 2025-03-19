@@ -148,5 +148,5 @@ ax.axis('equal')
 st.pyplot(fig)
 
 st.subheader("Insight")
-st.write(f"Banyaknya Pengguna Terdaftar: {user_counts['registered_users'].sum()}")
-st.write(f"Banyaknya Pengguna Kasual: {user_counts['casual_users'].sum()}")
+st.write(f"Banyaknya Pengguna Terdaftar: {user_counts[0]:,}")
+st.write(f"Banyaknya Pengguna Kasual: {user_counts[1]:,}")
