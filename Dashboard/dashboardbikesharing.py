@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
+import numpy as np
 
 day1_df = pd.read_csv("Dashboard/day1_data.csv")
 
