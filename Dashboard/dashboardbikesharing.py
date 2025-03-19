@@ -67,7 +67,6 @@ season_df = create_user_v_season_df(main_df)
     
 fig, ax = plt.subplots(figsize=(10, 6))
 sns.barplot(x="season", y="total_rentals", data=season_df, ax=ax, palette="viridis")
-ax.set_title("Jumlah Total Rentals per Season")
 ax.set_xlabel("Season")
 ax.set_ylabel("Total Rentals")
 st.pyplot(fig)
@@ -82,7 +81,6 @@ working_sf = create_workingday_summary_df(main_df)
 
 fig, ax = plt.subplots(figsize=(10, 6))
 sns.barplot(x="working_day", y="total_rentals", data=working_sf, ax=ax, palette="viridis")
-ax.set_title("Hari Kerja vs Akhir Pekan")
 ax.set_xlabel("Hari Kerja (False = Akhir Pekan, True = Hari Kerja)")
 ax.set_ylabel("Total Rentals")
 st.pyplot(fig)
@@ -96,7 +94,6 @@ condition_sf=create_condition_day_df(main_df)
 
 fig, ax = plt.subplots(figsize=(10, 6))
 sns.barplot(x="weather_condition",y="total_rentals", data=condition_sf, ax=ax, palette="viridis")
-ax.set_title('Hubungan Cuaca & Total Penyewaan')
 ax.set_xlabel('Kondisi Cuaca')
 ax.set_ylabel('Total Penyewaan')
 st.pyplot(fig)
@@ -109,7 +106,6 @@ fig, ax = plt.subplots(figsize=(10, 6))
 sns.barplot(x="weekday", y="total_rentals", data=weekday_sf, ax=ax, palette="viridis")
 ax.set_xlabel("Hari dalam Seminggu")
 ax.set_ylabel("Total Penyewaan")
-ax.set_title("Total Penyewaan Sepeda per Hari")
 st.pyplot(fig)
 
 st.subheader("Insight")
@@ -122,7 +118,6 @@ month_sf = create_month_df(day1_df)
 
 fig, ax = plt.subplots(figsize=(10, 6))
 sns.barplot(x="month", y="total_rentals", data=month_sf, ax=ax, palette="viridis")
-ax.set_title("Hubungan Bulan dengan Total Penyewaan")
 ax.set_xlabel("Bulan")
 ax.set_ylabel("Total Penyewaan")
 plt.tight_layout()
@@ -132,7 +127,7 @@ st.subheader("Insight")
 st.write(f"Bulan dengan rentals tertinggi: {month_sf.loc[month_sf['total_rentals'].idxmax(), 'month' if 'month_name' not in month_sf.columns else 'month_name']}")
 st.write(f"Bulan dengan rentals terendah: {month_sf.loc[month_sf['total_rentals'].idxmin(), 'month' if 'month_name' not in month_sf.columns else 'month_name']}")
 
-st.subheader("Rasio Total dari Pengguna Terdaftar dan Pengguna Kasual")
+st.subheader("Perbandingan Pengguna Terdaftar dan Pengguna Kasual")
 
 user_counts = create_user_counts_df(day1_df)
 labels = ['Registered Users', 'Casual Users']
@@ -150,5 +145,8 @@ ax.pie(
 )
 
 ax.axis('equal')
-plt.title('Perbandingan Pengguna Terdaftar vs Pengguna Kasual')
 st.pyplot(fig)
+
+st.subheader("Insight")
+st.write(f"Banyaknya Pengguna Terdaftar: {user_counts['registered_users'].sum():,}")
+st.write(f"Banyaknya Pengguna Kasual: {user_counts['casual_users'].sum():,}")
