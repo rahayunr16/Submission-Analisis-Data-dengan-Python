@@ -99,7 +99,7 @@ st.pyplot(fig)
 
 st.subheader("Total Penyewaan Sepeda per Hari")
 
-weekday_sf = weekday_df(main_df)  
+weekday_sf = create_weekday_df(main_df)  
 
 fig, ax = plt.subplots(figsize=(10, 6))
 sns.barplot(x="weekday", y="total_rentals", data=weekday_sf, ax=ax, palette="viridis")
@@ -114,7 +114,7 @@ st.write(f"Hari dengan rentals terendah: {weekday_sf.loc[weekday_sf['total_renta
 
 st.subheader("Total Penyewaan Sepeda per Bulan")
 
-month_sf = month_df(day1_df)
+month_sf = create_month_df(day1_df)
 
 fig, ax = plt.subplots(figsize=(12, 6))
 ax.bar(month_df['month'], month_df['total_rentals'])
