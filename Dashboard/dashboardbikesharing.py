@@ -32,7 +32,11 @@ def create_month_df(day1_df):
     month_df['month'] = pd.Categorical(month_df['month'], categories=month_order, ordered=True)
     month_df = month_df.sort_values('month')
     return month_df
-    
+
+def create_user_counts_df(day1_df):
+    user_counts_df = [day1_df['registered_users'].sum(), day1_df['casual_users'].sum()]
+    return user_counts_df
+
 min_date = day1_df["date"].min().date()
 max_date = day1_df["date"].max().date()
 
@@ -128,3 +132,19 @@ st.subheader("Insight")
 st.write(f"Bulan dengan rentals tertinggi: {month_sf.loc[month_sf['total_rentals'].idxmax(), 'month' if 'month_name' not in month_sf.columns else 'month_name']}")
 st.write(f"Bulan dengan rentals terendah: {month_sf.loc[month_sf['total_rentals'].idxmin(), 'month' if 'month_name' not in month_sf.columns else 'month_name']}")
 
+st.subheader("Rasio Total dari Pengguna Terdaftar dan Pengguna Kasual")
+
+user_counts = create_user_counts_df(day1_df)
+labels = ['Registered Users', 'Casual Users']
+fig, ax = plt.subplots(figsize=(7, 7))
+plt.pie(
+    user_counts,
+    labels=labels,
+    autopct='%1.1f%%',
+    palette="viridis",
+    startangle=90,
+    wedgeprops={'edgecolor': 'black'}
+)
+plt.title("Perbandingan Pengguna Terdaftar vs Pengguna Kasual", fontsize=14)
+plt.axis('equal')
+st.pyplot(fig)
