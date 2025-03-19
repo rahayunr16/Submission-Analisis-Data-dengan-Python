@@ -134,22 +134,28 @@ st.write(f"Bulan dengan rentals terendah: {month_sf.loc[month_sf['total_rentals'
 
 st.subheader("Rasio Total dari Pengguna Terdaftar dan Pengguna Kasual")
 
+# Get the data
 user_counts = create_user_counts_df(day1_df)
 labels = ['Registered Users', 'Casual Users']
+colors = ['#1E88E5', '#FF5722']  # Blue for registered, Orange/Red for casual
 
-fig = plt.figure(figsize=(10, 10))
-ax = fig.add_subplot(111, polar=True)
+# Create the figure
+fig, ax = plt.subplots(figsize=(8, 8))
 
-colors = plt.cm.viridis(np.linspace(0, 1, N))
-
-bars = ax.bar(
-    x=angles,  # Angle positions
-    height=user_counts,  # Bar heights
-    width=2*np.pi/N * 0.8,  # Width of bars (with small gap)
-    bottom=0,  # Starting from center
-    alpha=0.8,  # Transparency
-    color=colors  # Colors
+# Create the pie chart
+ax.pie(
+    user_counts,
+    labels=labels,
+    autopct='%1.1f%%',
+    colors=colors,
+    startangle=90,
+    wedgeprops={'edgecolor': 'white', 'linewidth': 1}
 )
 
-plt.title('Perbandingan Pengguna Terdaftar vs Pengguna Kasual')
+# Ensure the pie chart is circular
+ax.axis('equal')
+
+plt.title('Perbandingan Pengguna Terdaftar vs Pengguna Kasual', fontsize=14)
+
+# Display in Streamlit
 st.pyplot(fig)
