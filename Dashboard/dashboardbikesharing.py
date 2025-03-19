@@ -78,7 +78,7 @@ fig, axes = plt.subplots(1, 2, figsize=(14, 6))
 
 graph1 = sns.barplot(
     ax=axes[0],
-    data=day_summary1,
+    data=condition_day_df,
     x='weather_condition',
     y='total_rentals',
     hue='weather_condition',
