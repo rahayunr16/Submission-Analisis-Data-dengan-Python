@@ -18,19 +18,17 @@ def create_workingday_summary_df(day1_df):
 def create_condition_day_df(day1_df):
     condition_day_df = day1_df.groupby('weather_condition', as_index=False)['total_rentals'].sum()
     return condition_day_df
-    
+
+order = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 def create_weekday_df(day1_df):
     weekday_df = day1_df.groupby('weekday', as_index=False)['total_rentals'].sum()
     weekday_df['weekday'] = pd.Categorical(weekday_df['weekday'], categories=order, ordered=True)
-    order = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     weekday_df = weekday_df.sort_values('weekday')
     return weekday_df
 
+order = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 def create_month_df(day1_df):
-    day1_df['month'] = day1_df['month'].astype(str)
     month_df = day1_df.groupby('month', as_index=False)['total_rentals'].sum()
-    month_df = month_df.dropna(subset=['month'])
-    order = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     month_df['month'] = pd.Categorical(month_df['month'], categories=order, ordered=True)
     month_df = month_df.sort_values('month')
     return month_df
@@ -101,7 +99,7 @@ st.pyplot(fig)
 
 st.subheader("Total Penyewaan Sepeda per Hari")
 
-weekday_sf = create_weekday_df(main_df)  
+weekday_sf = weekday_df(main_df)  
 
 fig, ax = plt.subplots(figsize=(10, 6))
 sns.barplot(x="weekday", y="total_rentals", data=weekday_sf, ax=ax, palette="viridis")
@@ -116,7 +114,7 @@ st.write(f"Hari dengan rentals terendah: {weekday_sf.loc[weekday_sf['total_renta
 
 st.subheader("Total Penyewaan Sepeda per Bulan")
 
-month_sf = create_month_df(day1_df)
+month_sf = month_df(day1_df)
 
 fig, ax = plt.subplots(figsize=(12, 6))
 ax.bar(month_df['month'], month_df['total_rentals'])
