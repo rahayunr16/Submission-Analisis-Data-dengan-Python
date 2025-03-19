@@ -168,7 +168,7 @@ st.subheader("Tren Total Penyewaan Sepeda dari Waktu ke Waktu")
 fig, ax = plt.subplots(figsize=(12, 6))
 
 sns.lineplot(
-    data=monthly_rentals,
+    data=monthly_orders_df,
     x='date', 
     y='total_rentals',
     marker='o',
