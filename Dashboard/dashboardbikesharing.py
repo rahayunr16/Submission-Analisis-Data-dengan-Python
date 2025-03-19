@@ -163,12 +163,13 @@ st.write(f"Banyaknya Pengguna Terdaftar: {user_counts[0]:,}")
 st.write(f"Banyaknya Pengguna Kasual: {user_counts[1]:,}")
 
 
-st.subheader("Tren Total Penyewaan Sepeda dari Waktu ke Waktu")
+st.subheader("Tren Total Penyewaan Sepeda dari Waktu ke Waktu")\
 
+monthly_sf = create_monthly_orders_df(main_df)
 fig, ax = plt.subplots(figsize=(12, 6))
 
 sns.lineplot(
-    data=monthly_orders_df,
+    data=monthly_sf,
     x='date', 
     y='total_rentals',
     marker='o',
