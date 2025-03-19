@@ -66,14 +66,10 @@ working_sf = create_workingday_summary_df(main_df)
 fig, ax = plt.subplots(figsize=(10, 6))
 sns.barplot(x="working_day", y="total_rentals", data=working_sf, ax=ax)
 ax.set_title("Hari Kerja vs Akhir Pekan")
-ax.set_xlabel("Hari Kerja (0 = Akhir Pekan, 1 = Hari Kerja)")
+ax.set_xlabel("Hari Kerja (False = Akhir Pekan, True = Hari Kerja)")
 ax.set_ylabel("Total Rentals")
 st.pyplot(fig)
 
 st.subheader("Insight")
+    st.write(f"Total rentals pada hari kerja lebih banyak dibandingkan akhir pekan.")
 
-if not working_sf.empty:
-    st.write(f"Hari Kerja dengan rentals tertinggi: {working_sf.loc[working_sf['total_rentals'].idxmax(), 'working_day']}")
-    st.write(f"Hari Kerja dengan rentals terendah: {working_sf.loc[working_sf['total_rentals'].idxmin(), 'working_day']}")
-else:
-    st.warning("Tidak ada data yang tersedia untuk analisis hari kerja dan akhir pekan.")
