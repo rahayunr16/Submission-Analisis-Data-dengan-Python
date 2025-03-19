@@ -74,22 +74,11 @@ st.write("Total rentals pada hari kerja lebih banyak dibandingkan akhir pekan.")
 
 st.subheader("Pengaruh Kondisi Cuaca pada Total Penyewaan Sepeda")
 
+condition_sf=create_condition_day_df(main_df)
+
 fig, axes = plt.subplots(1, 2, figsize=(14, 6))
-
-graph1 = sns.barplot(
-    ax=axes[0],
-    data=condition_day_df,
-    x='weather_condition',
-    y='total_rentals',
-    hue='weather_condition',
-    palette=daycolors,
-    legend=False
-)
-axes[0].set_title('Hubungan Cuaca & Total Penyewaan', fontsize=14)
-axes[0].set_xlabel('Kondisi Cuaca', fontsize=12)
-axes[0].set_ylabel('Total Penyewaan', fontsize=12)
-
-for i in graph1.containers:
-    graph1.bar_label(i, fmt="%d", fontsize=12, color="black")
-
+sns.barplot(x="weather_condition",y="total_rentals", data=condition_sf, ax=ax)
+ax.set_title('Hubungan Cuaca & Total Penyewaan')
+ax.set_xlabel('Kondisi Cuaca')
+ax.set_ylabel('Total Penyewaan')
 st.pyplot(fig)
