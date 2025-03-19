@@ -101,3 +101,7 @@ ax.set_xlabel("Hari dalam Seminggu")
 ax.set_ylabel("Total Penyewaan")
 ax.set_title("Total Penyewaan Sepeda per Hari")
 st.pyplot(fig)
+
+st.subheader("Insight")
+st.write(f"Hari dengan rentals tertinggi: {weekday_sf.loc[weekday_sf['total_rentals'].idxmax(), 'weekday' if 'weekday_name' not in weekday_sf.columns else 'weekday_name']}")
+st.write(f"Hari dengan rentals terendah: {weekday_sf.loc[weekday_sf['total_rentals'].idxmin(), 'weekday' if 'weekday_name' not in weekday_sf.columns else 'weekday_name']}")
