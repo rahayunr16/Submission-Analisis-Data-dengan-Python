@@ -7,8 +7,8 @@ day1_df = pd.read_csv("Dashboard/day1_data.csv")
 
 day1_df["date"] = pd.to_datetime(day1_df["date"])
 
-def create_user_v_season_df(df):
-    user_v_season_df = df.groupby("season", as_index=False)["total_rentals"].sum()
+def create_user_v_season_df(day1_df):
+    user_v_season_df = day1_df.groupby("season", as_index=False)["total_rentals"].sum()
     return user_v_season_df
 
 def create_workingday_summary_df(day1_df):
@@ -81,4 +81,23 @@ sns.barplot(x="weather_condition",y="total_rentals", data=condition_sf, ax=ax)
 ax.set_title('Hubungan Cuaca & Total Penyewaan')
 ax.set_xlabel('Kondisi Cuaca')
 ax.set_ylabel('Total Penyewaan')
+st.pyplot(fig)
+
+
+order = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+def weekday_df(day1_df):
+    weekday_df = day1_df.groupby('weekday', as_index=False)['total_rentals'].sum()
+    weekday_df['weekday'] = pd.Categorical(weekday_df['weekday'], categories=order, ordered=True)
+    weekday_df = weekday_df.sort_values('weekday')
+    return weekday_df
+
+st.subheader("Total Penyewaan Sepeda per Hari dalam Seminggu")
+
+weekday_sf = weekday_df(main_df)  
+
+fig, ax = plt.subplots(figsize=(10, 6))
+sns.barplot(x="weekday", y="total_rentals", data=weekday_sf, ax=ax, palette="viridis")
+ax.set_xlabel("Hari dalam Seminggu")
+ax.set_ylabel("Total Penyewaan")
+ax.set_title("Total Penyewaan Sepeda per Hari")
 st.pyplot(fig)
