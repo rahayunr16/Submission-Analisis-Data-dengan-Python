@@ -2,7 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
-import numpy as np
 
 day1_df = pd.read_csv("Dashboard/day1_data.csv")
 
@@ -141,9 +140,6 @@ labels = ['Registered Users', 'Casual Users']
 fig = plt.figure(figsize=(10, 10))
 ax = fig.add_subplot(111, polar=True)
 
-N = len(labels)
-angles = np.linspace(0, 2*np.pi, N, endpoint=False).tolist()
-
 colors = plt.cm.viridis(np.linspace(0, 1, N))
 
 bars = ax.bar(
@@ -154,17 +150,6 @@ bars = ax.bar(
     alpha=0.8,  # Transparency
     color=colors  # Colors
 )
-
-plt.xticks(angles, labels)
-
-for angle, value, bar in zip(angles, user_counts, bars):
-    ax.text(
-        angle, 
-        value + max(user_counts)*0.05,  # Position slightly above bar
-        f'{value:,.0f}',  # Format with commas for thousands
-        ha='center',
-        va='center'
-    )
 
 plt.title('Perbandingan Pengguna Terdaftar vs Pengguna Kasual')
 st.pyplot(fig)
