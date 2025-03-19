@@ -41,8 +41,8 @@ st.subheader("Jumlah Total Rentals berdasarkan Season")
 all_seasons = ["Spring", "Summer", "Fall", "Winter"]
 selected_seasons = st.multiselect(
     "Pilih Season yang ingin ditampilkan:",
-    options=all_season,
-    default=all_season
+    options=all_seasons,
+    default=all_seasons
 )
 
 if selected_seasons:
