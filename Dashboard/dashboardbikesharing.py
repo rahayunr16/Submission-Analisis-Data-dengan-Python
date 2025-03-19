@@ -136,7 +136,7 @@ st.subheader("Rasio Total dari Pengguna Terdaftar dan Pengguna Kasual")
 
 user_counts = create_user_counts_df(day1_df)
 labels = ['Registered Users', 'Casual Users']
-colors = plt.cm.viridis([0.2, 0.8]) 
+colors = ['#3A1B6D', '#C1D32F']
 
 fig, ax = plt.subplots(figsize=(8, 8))
 
