@@ -71,6 +71,9 @@ ax.set_ylabel("Total Rentals")
 st.pyplot(fig)
 
 st.subheader("Insight")
-    st.write(f"Hari dengan rentals tertinggi: {working_sf.loc[working_sf['total_rentals'].idxmax(), 'working_day']}")
-    st.write(f"Hari dengan rentals terendah: {working_sf.loc[working_sf['total_rentals'].idxmin(), 'working_day']}")
 
+if not working_sf.empty:
+    st.write(f"Hari Kerja dengan rentals tertinggi: {working_sf.loc[working_sf['total_rentals'].idxmax(), 'working_day']}")
+    st.write(f"Hari Kerja dengan rentals terendah: {working_sf.loc[working_sf['total_rentals'].idxmin(), 'working_day']}")
+else:
+    st.warning("Tidak ada data yang tersedia untuk analisis hari kerja dan akhir pekan.")
