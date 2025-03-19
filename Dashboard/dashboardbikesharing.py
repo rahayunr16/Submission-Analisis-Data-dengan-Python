@@ -54,11 +54,6 @@ st.subheader("Insight")
 st.write(f"Season dengan rentals tertinggi: {season_df.loc[season_df['total_rentals'].idxmax(), 'season' if 'season_name' not in season_df.columns else 'season_name']}")
 st.write(f"Season dengan rentals terendah: {season_df.loc[season_df['total_rentals'].idxmin(), 'season' if 'season_name' not in season_df.columns else 'season_name']}")
 
-
-st.subheader("Perbandingan Total Rentals berdasarkan Hari Kerja dan Akhir Pekan")
-
-
-
 st.subheader("Perbandingan Total Rentals berdasarkan Hari Kerja dan Akhir Pekan")
 
 working_sf = create_workingday_summary_df(main_df)
