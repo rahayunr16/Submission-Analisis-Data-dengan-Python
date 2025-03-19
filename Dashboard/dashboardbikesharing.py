@@ -53,7 +53,7 @@ season_df = create_user_v_season_df(filtered_df)
 
 if not filtered_df.empty:
     fig, ax = plt.subplots(figsize=(10, 6))
-    sns.barplot(x="season_name", y="total_rentals", data=season_df, ax=ax)
+    sns.barplot(x="season", y="total_rentals", data=season_df, ax=ax)
     ax.set_title("Jumlah Total Rentals per Season")
     ax.set_xlabel("Season")
     ax.set_ylabel("Total Rentals")
@@ -63,6 +63,6 @@ else:
     st.warning("Tidak ada data yang sesuai dengan filter yang dipilih.")
 
 st.subheader("*Insight*")
-    st.write(f"Season dengan rentals tertinggi: {season_df.loc[season_df['total_rentals'].idxmax(), 'season_name']}")
-    st.write(f"Season dengan rentals terendah: {season_df.loc[season_df['total_rentals'].idxmin(), 'season_name']}")
+    st.write(f"Season dengan rentals tertinggi: {season_df.loc[season_df['total_rentals'].idxmax(), 'season']}")
+    st.write(f"Season dengan rentals terendah: {season_df.loc[season_df['total_rentals'].idxmin(), 'season']}")
 
