@@ -137,22 +137,33 @@ st.subheader("Rasio Total dari Pengguna Terdaftar dan Pengguna Kasual")
 user_counts = create_user_counts_df(day1_df)
 labels = ['Registered Users', 'Casual Users']
 
-fig = px.bar_polar(
-  user_counts,
-    labels=labels,
-    autopct='%1.1f%%',
-    palette="viridis",
-    startangle=90,
-    wedgeprops={'edgecolor': 'black'}
+fig = plt.figure(figsize=(10, 10))
+ax = fig.add_subplot(111, polar=True)
+
+N = len(labels)
+angles = np.linspace(0, 2*np.pi, N, endpoint=False).tolist()
+
+colors = plt.cm.viridis(np.linspace(0, 1, N))
+
+bars = ax.bar(
+    x=angles,  # Angle positions
+    height=user_counts,  # Bar heights
+    width=2*np.pi/N * 0.8,  # Width of bars (with small gap)
+    bottom=0,  # Starting from center
+    alpha=0.8,  # Transparency
+    color=colors  # Colors
 )
-fig.update_layout(
-    polar=dict(
-        radialaxis=dict(
-            visible=True,
-            showticklabels=True
-        )
-    ),
-    width=700,
-    height=700
-)
-st.plotly_chart(fig)
+
+plt.xticks(angles, labels)
+
+for angle, value, bar in zip(angles, user_counts, bars):
+    ax.text(
+        angle, 
+        value + max(user_counts)*0.05,  # Position slightly above bar
+        f'{value:,.0f}',  # Format with commas for thousands
+        ha='center',
+        va='center'
+    )
+
+plt.title('Perbandingan Pengguna Terdaftar vs Pengguna Kasual')
+st.pyplot(fig)
