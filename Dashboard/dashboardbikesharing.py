@@ -19,16 +19,17 @@ def create_condition_day_df(day1_df):
     condition_day_df = day1_df.groupby('weather_condition', as_index=False)['total_rentals'].sum()
     return condition_day_df
 
-order = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+weekday_order = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 def create_weekday_df(day1_df):
     weekday_df = day1_df.groupby('weekday', as_index=False)['total_rentals'].sum()
-    weekday_df['weekday'] = pd.Categorical(weekday_df['weekday'], categories=order, ordered=True)
+    weekday_df['weekday'] = pd.Categorical(weekday_df['weekday'], categories=weekday_order, ordered=True)
     weekday_df = weekday_df.sort_values('weekday')
     return weekday_df
 
+month_order = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 def create_month_df(day1_df):
     month_df = day1_df.groupby('month', as_index=False)['total_rentals'].sum()
-    month_df['month'] = pd.Categorical(month_df['month'], categories=order, ordered=True)
+    month_df['month'] = pd.Categorical(month_df['month'], categories=month_order, ordered=True)
     month_df = month_df.sort_values('month')
     return month_df
     
