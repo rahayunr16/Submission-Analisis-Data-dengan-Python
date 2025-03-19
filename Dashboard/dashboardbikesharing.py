@@ -14,7 +14,7 @@ def create_user_v_season_df(df):
 def create_workingday_summary_df(day1_df):
     workingday_summary_df = day1_df.groupby("working_day", as_index=False)["total_rentals"].sum()
     return workingday_summary_df
-
+ 
 min_date = day1_df["date"].min().date()
 max_date = day1_df["date"].max().date()
 
@@ -57,16 +57,20 @@ st.write(f"Season dengan rentals terendah: {season_df.loc[season_df['total_renta
 
 st.subheader("Perbandingan Total Rentals berdasarkan Hari Kerja dan Akhir Pekan")
 
-working_sf = create_workingday_summary_df(main1_df)
-    
+
+
+st.subheader("Perbandingan Total Rentals berdasarkan Hari Kerja dan Akhir Pekan")
+
+working_sf = create_workingday_summary_df(main_df)
+
 fig, ax = plt.subplots(figsize=(10, 6))
-sns.barplot(x="working_day", y="total_rentals", data=season_df, ax=ax)
+sns.barplot(x="working_day", y="total_rentals", data=working_sf, ax=ax)
 ax.set_title("Hari Kerja vs Akhir Pekan")
-ax.set_xlabel("Hari Kerja")
+ax.set_xlabel("Hari Kerja (0 = Akhir Pekan, 1 = Hari Kerja)")
 ax.set_ylabel("Total Rentals")
 st.pyplot(fig)
 
 st.subheader("Insight")
-st.write(f"Hari Kerja dengan rentals tertinggi: {working_df.loc[working_df['total_rentals'].idxmax(), 'working_day' if 'working_day_name' not in workingday_df.columns else 'working_day_name']}")
-st.write(f"Akhir PEkan dengan rentals terendah: {working_df.loc[working_df['total_rentals'].idxmin(), 'working_day' if 'working_day_name' not in workingday_df.columns else 'working_day_name']}")
+    st.write(f"Hari dengan rentals tertinggi: {working_sf.loc[working_sf['total_rentals'].idxmax(), 'working_day']}")
+    st.write(f"Hari dengan rentals terendah: {working_sf.loc[working_sf['total_rentals'].idxmin(), 'working_day']}")
 
