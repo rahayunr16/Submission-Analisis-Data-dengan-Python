@@ -183,3 +183,9 @@ plt.xticks(rotation=45)
 ax.grid(True, linestyle='--', alpha=0.5)
 plt.tight_layout()
 st.pyplot(fig)
+
+st.subheader("Insight")
+
+st.write(f"Jumlah penyewaan tertinggi: {monthly_rentals['total_rentals'].max()}")
+st.write(f"Jumlah penyewaan terendah: {monthly_rentals['total_rentals'].min()}")
+st.write(f"Rata-rata penyewaan per bulan: {monthly_rentals['total_rentals'].mean():.2f}")
